@@ -116,6 +116,21 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
         return null;
     }
+    public CustomerDto findByCusId(String contact) throws SQLException {
+        ResultSet rst = CrudUtil.execute("SELECT * FROM customer WHERE contacts = ?", contact);
+
+        if (rst.next()) {
+            return new CustomerDto(
+                    rst.getString("cust_id"),    // Customer ID
+                    rst.getString("cust_name"),  // Name
+                    rst.getString("adress"),     // Address
+                    rst.getString("contacts"),    // Contact
+                    rst.getString("Nic"),        // NIC
+                    rst.getString("eMail")       // Email
+            );
+        }
+        return null;
+    }
 
 
 

@@ -1,5 +1,6 @@
 package com.assignment.abcfactory.dao.custom.impl;
 
+import com.assignment.abcfactory.dao.custom.ItemDAO;
 import com.assignment.abcfactory.dto.ItemDto;
 import com.assignment.abcfactory.util.CrudUtil;
 
@@ -7,11 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ItemModel {
+public class ItemModelDAO implements ItemDAO {
     
 
 
-    public static boolean saveItem(ItemDto itemDto) throws SQLException {
+    public  boolean save(ItemDto itemDto) throws SQLException {
         return CrudUtil.execute(
                 "insert into item values (?,?)",
                 itemDto.getItem_id(),
@@ -19,7 +20,25 @@ public class ItemModel {
         );
     }
 
-    public static ItemDto findById(String selectedItemId) throws SQLException {
+
+
+    @Override
+    public boolean exist(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+
+    @Override
+    public String getNextId() throws SQLException, ClassNotFoundException {
+        return "";
+    }
+
+    @Override
+    public ItemDto search(String id) throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    public ItemDto findById(String selectedItemId) throws SQLException {
         // Execute SQL query to find the item by ID
         ResultSet rst = CrudUtil.execute("select * from item where item_id=?", selectedItemId);
 
@@ -34,7 +53,7 @@ public class ItemModel {
     }
 
 
-    public static ArrayList<String> getAllItemIds() throws SQLException {
+    public ArrayList<String> getAllIds() throws SQLException {
 
         ResultSet rst = CrudUtil.execute("select * from item");
         ArrayList<String> itemIds = new ArrayList<>();
@@ -46,7 +65,7 @@ public class ItemModel {
 
         return itemIds;
     }
-    public static boolean updateItem(ItemDto itemDto) throws SQLException {
+    public  boolean update(ItemDto itemDto) throws SQLException {
         return CrudUtil.execute(
                 "update item set item_name=? where item_id=?",
                 itemDto.getItem_name(),
@@ -54,12 +73,12 @@ public class ItemModel {
 
         );
     }
-    public static boolean deleteItem(String itemId) throws SQLException {
+    public  boolean delete(String itemId) throws SQLException {
         return CrudUtil.execute("delete from item where item_id=?", itemId);
     }
 
 
-    public ArrayList<ItemDto> getAllItems() throws SQLException {
+    public ArrayList<ItemDto> getAll() throws SQLException {
         // Execute SQL query to get all item IDs
             ArrayList<ItemDto> items = new ArrayList<>();
 

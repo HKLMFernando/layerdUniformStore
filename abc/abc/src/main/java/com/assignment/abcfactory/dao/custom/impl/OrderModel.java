@@ -1,5 +1,6 @@
-package com.assignment.abcfactory.model;
+package com.assignment.abcfactory.dao.custom.impl;
 
+import com.assignment.abcfactory.dao.custom.OrderDAO;
 import com.assignment.abcfactory.dto.CustomerDto;
 import com.assignment.abcfactory.dto.OrderAndDetailDto;
 import com.assignment.abcfactory.dto.OrderDetailsDto;
@@ -12,18 +13,10 @@ import java.util.ArrayList;
 
 import static com.assignment.abcfactory.util.CrudUtil.execute;
 
-public class OrderModel {
-    public static boolean saveOrder(OrderDetailsDto orderDetailDto) throws SQLException {
-        return execute(
-                "insert into order_details values (?,?,?)",
-                orderDetailDto.getOrder_id(),
-                orderDetailDto.getItem_id(),
-                orderDetailDto.getTotal()
+public class OrderModel implements OrderDAO {
 
-        );
-    }
 
-    public String getNextOrderId() throws SQLException {
+    public String getNextId() throws SQLException {
         ResultSet rst = CrudUtil.execute("select order_id from orders order by order_id desc limit 1");
 
         if (rst.next()) {
@@ -36,7 +29,17 @@ public class OrderModel {
         return "O001"; // Return the default customer ID if no data is found
     }
 
-    public static boolean saveOrder(OrderDto orderDto) throws SQLException {
+    @Override
+    public OrderDto search(String id) throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public ArrayList<OrderDto> getAll() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    public  boolean save(OrderDto orderDto) throws SQLException {
         return execute(
                 "insert into orders values (?,?,?,?,?,?)",
                 orderDto.getOrder_id(),
@@ -71,7 +74,7 @@ public class OrderModel {
     }
 
 
-    public boolean updateOrders(OrderDto orderDto) throws SQLException {
+    public boolean update(OrderDto orderDto) throws SQLException {
         return execute(
                 "update orders set order_date=?, due_date=?, qty=?, price_per_unit=?,cust_id=? where order_id=?",
                 orderDto.getOrder_date(),
@@ -83,8 +86,13 @@ public class OrderModel {
         );
     }
 
+    @Override
+    public boolean exist(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
 
-    public boolean deleteOrder(String orderId) throws SQLException {
+
+    public boolean delete(String orderId) throws SQLException {
         return execute("delete from orders where order_id=?", orderId);
     }
 
@@ -103,20 +111,20 @@ public class OrderModel {
 
 
 
-    public static CustomerDto findById(String contact) throws SQLException {
-        ResultSet rst = CrudUtil.execute("SELECT * FROM customer WHERE contacts = ?", contact);
-
-        if (rst.next()) {
-            return new CustomerDto(
-                    rst.getString("cust_id"),    // Customer ID
-                    rst.getString("cust_name"),  // Name
-                    rst.getString("adress"),     // Address
-                    rst.getString("contacts"),    // Contact
-                    rst.getString("Nic"),        // NIC
-                    rst.getString("eMail")       // Email
-            );
-        }
-        return null;
-    }
+//    public static CustomerDto findById(String contact) throws SQLException {
+//        ResultSet rst = CrudUtil.execute("SELECT * FROM customer WHERE contacts = ?", contact);
+//
+//        if (rst.next()) {
+//            return new CustomerDto(
+//                    rst.getString("cust_id"),    // Customer ID
+//                    rst.getString("cust_name"),  // Name
+//                    rst.getString("adress"),     // Address
+//                    rst.getString("contacts"),    // Contact
+//                    rst.getString("Nic"),        // NIC
+//                    rst.getString("eMail")       // Email
+//            );
+//        }
+//        return null;
+//    }
 
 }

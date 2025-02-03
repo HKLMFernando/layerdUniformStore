@@ -2,7 +2,8 @@ package com.assignment.abcfactory.controller;
 
 import com.assignment.abcfactory.dto.ManuDto;
 import com.assignment.abcfactory.dto.tm.ManuTm;
-import com.assignment.abcfactory.model.ManuModel;
+import com.assignment.abcfactory.dao.custom.impl.ManuModelDAO;
+import com.assignment.abcfactory.dao.custom.impl.OrderModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -65,13 +66,13 @@ public class ManufacturingController implements Initializable {
     }
 
     @FXML
-    void deleteonAction(ActionEvent event) throws SQLException {
+    void deleteonAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String manuId = txtmanuId.getText();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure ?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.YES) {
-            boolean isDeleted = manuModel.deletemanudetails(manuId);
+            boolean isDeleted = manuModel.delete(manuId);
             if (isDeleted){
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "prosses deleted...!").show();
@@ -89,7 +90,7 @@ public class ManufacturingController implements Initializable {
     }
 
     @FXML
-    void saveManuOnAction(ActionEvent event) throws SQLException {
+    void saveManuOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String manuId = txtmanuId.getText();
         String orderId = cmbOrderId.getValue();
         String prosses = cmbProssese.getValue();
@@ -106,7 +107,7 @@ public class ManufacturingController implements Initializable {
                 orderId,
                 prosses
         );
-        boolean isSaved = manuModel.savemanuDetails(manuDto);
+        boolean isSaved = manuModel.save(manuDto);
         if (isSaved) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "prosses saved...!").show();
@@ -134,7 +135,7 @@ public class ManufacturingController implements Initializable {
     }
 
     @FXML
-    void updateonAction(ActionEvent event) throws SQLException {
+    void updateonAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String manuId = txtmanuId.getText();
         String orderId = cmbOrderId.getValue();
         String prosses = cmbProssese.getValue();
@@ -145,7 +146,7 @@ public class ManufacturingController implements Initializable {
                 prosses,
                 orderId
         );
-        boolean isSaved = manuModel.updatemanuDetails(manuDto);
+        boolean isSaved = manuModel.update(manuDto);
         if (isSaved) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "prosses saved...!").show();
@@ -154,7 +155,7 @@ public class ManufacturingController implements Initializable {
         }
 
     }
-    ManuModel manuModel = new ManuModel();
+    ManuModelDAO manuModel = new ManuModelDAO();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colmanuId.setCellValueFactory(new PropertyValueFactory<>("manufacturing_id"));
@@ -176,7 +177,7 @@ public class ManufacturingController implements Initializable {
         }
     }
 
-    private void refreshPage() throws SQLException {
+    private void refreshPage() throws SQLException, ClassNotFoundException {
         loadNextManuId();
         loadOrderId();
 
@@ -190,7 +191,7 @@ public class ManufacturingController implements Initializable {
     }
 
     private void loadTableData() throws SQLException {
-        ArrayList<ManuDto> manuDtos = manuModel.getallsmanudetails();
+        ArrayList<ManuDto> manuDtos = manuModel.getAll();
 
         ObservableList<ManuTm> manuTms = FXCollections.observableArrayList();
 
@@ -205,17 +206,17 @@ public class ManufacturingController implements Initializable {
         }
         tblManu.setItems(manuTms);
     }
-
+    OrderModel orderModel = new OrderModel();
     private void loadOrderId() throws SQLException {
-        ArrayList<String> orderIds = manuModel.getAllordersID();
+        ArrayList<String> orderIds = orderModel.getAllOrderIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(orderIds);
         cmbOrderId.setItems(observableList);
 
     }
 
-    private void loadNextManuId() throws SQLException {
-        String nextmanuId = manuModel.getAllmanuID();
+    private void loadNextManuId() throws SQLException, ClassNotFoundException {
+        String nextmanuId = manuModel.getNextId();
         txtmanuId.setText(nextmanuId);
     }
     private void navigateTo(String fxmlPath) {

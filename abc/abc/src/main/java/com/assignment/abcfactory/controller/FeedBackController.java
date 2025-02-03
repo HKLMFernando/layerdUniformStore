@@ -6,7 +6,7 @@ import com.assignment.abcfactory.dto.tm.FeedBackTm;
 import com.assignment.abcfactory.dao.custom.impl.CustomerDAOImpl;
 
 import com.assignment.abcfactory.dao.custom.impl.FeedBackModelDAOImpl;
-import com.assignment.abcfactory.model.OrderModel;
+import com.assignment.abcfactory.dao.custom.impl.OrderModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -62,11 +62,12 @@ public class FeedBackController implements Initializable {
     @FXML
     private TextField txtSearchContact;
 
+    CustomerDAOImpl customerDAO = new CustomerDAOImpl();
     @FXML
     void txtSearchContactOnAction(ActionEvent event) {
         String contact = txtSearchContact.getText();
         try {
-            CustomerDto customerDto = OrderModel.findById(contact);
+            CustomerDto customerDto = customerDAO.findByCusId(contact);
 
 
             if (customerDto != null) {

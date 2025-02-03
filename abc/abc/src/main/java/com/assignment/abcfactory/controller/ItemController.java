@@ -2,7 +2,7 @@ package com.assignment.abcfactory.controller;
 
 import com.assignment.abcfactory.dto.ItemDto;
 import com.assignment.abcfactory.dto.tm.ItemTm;
-import com.assignment.abcfactory.dao.custom.impl.ItemModel;
+import com.assignment.abcfactory.dao.custom.impl.ItemModelDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -118,10 +118,10 @@ public class ItemController implements Initializable {
         }
     }
 
-    ItemModel itemModel = new ItemModel();
+    ItemModelDAO itemModel = new ItemModelDAO();
 
     private void loadTableData() throws SQLException {
-        ArrayList<ItemDto> itemDTOS = itemModel.getAllItems();
+        ArrayList<ItemDto> itemDTOS = itemModel.getAll();
         ObservableList<ItemTm> itemTMS = FXCollections.observableArrayList();
 
         for (ItemDto itemDTO : itemDTOS) {
@@ -133,7 +133,7 @@ public class ItemController implements Initializable {
     }
 
     @FXML
-    void deleteItem(ActionEvent event) throws SQLException {
+    void deleteItem(ActionEvent event) throws SQLException, ClassNotFoundException {
         String itemId = txtItemId.getText();
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
@@ -141,7 +141,7 @@ public class ItemController implements Initializable {
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
-            boolean isDeleted = ItemModel.deleteItem(itemId);
+            boolean isDeleted = itemModel.delete(itemId);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Item deleted...!").show();
@@ -162,7 +162,7 @@ public class ItemController implements Initializable {
 
         );
 
-        boolean isSaved = ItemModel.saveItem(itemDTO);
+        boolean isSaved = itemModel.save(itemDTO);
         if (isSaved) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Item saved...!").show();
@@ -179,7 +179,7 @@ public class ItemController implements Initializable {
                 itemId,
                 itemName
         );
-        boolean isUpdate = ItemModel.updateItem(itemDTO);
+        boolean isUpdate = itemModel.update(itemDTO);
         if (isUpdate) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Item update...!").show();

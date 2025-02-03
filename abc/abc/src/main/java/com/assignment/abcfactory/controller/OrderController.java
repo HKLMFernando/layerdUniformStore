@@ -1,12 +1,13 @@
 package com.assignment.abcfactory.controller;
 
+import com.assignment.abcfactory.dao.custom.CustomerDAO;
 import com.assignment.abcfactory.db.DBConnection;
 import com.assignment.abcfactory.dto.*;
 import com.assignment.abcfactory.dto.tm.OrderTm;
 import com.assignment.abcfactory.dao.custom.impl.CustomerDAOImpl;
-import com.assignment.abcfactory.dao.custom.impl.ItemModel;
+import com.assignment.abcfactory.dao.custom.impl.ItemModelDAO;
 import com.assignment.abcfactory.model.OrderDetailsModel;
-import com.assignment.abcfactory.model.OrderModel;
+import com.assignment.abcfactory.dao.custom.impl.OrderModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -158,7 +159,7 @@ public class OrderController implements Initializable {
         OrderDto orderDto = new OrderDto(orderId, orderDate, dueDate, qty, price, customerId);
         OrderDetailsDto orderDetailDto = new OrderDetailsDto(itemId, orderId, total);
 
-        boolean isUpdatedO = orderModel.updateOrders(orderDto);
+        boolean isUpdatedO = orderModel.update(orderDto);
         boolean isUpdatedOD = orderDetailsModel.updateOrders(orderDetailDto);
 
         if (isUpdatedO && isUpdatedOD) {
@@ -230,7 +231,7 @@ public class OrderController implements Initializable {
         OrderDto orderDto = new OrderDto(orderId, orderDate, dueDate, qty, price, customerId);
         OrderDetailsDto orderDetailDto = new OrderDetailsDto(orderId, itemId, total);
 
-        boolean isSavedOrder = orderModel.saveOrder(orderDto);
+        boolean isSavedOrder = orderModel.save(orderDto);
         boolean isSavedOrderDetail = orderDetailsModel.saveOrder(orderDetailDto);
 
         if (isSavedOrder && isSavedOrderDetail) {
@@ -318,7 +319,7 @@ public class OrderController implements Initializable {
     OrderModel orderModel = new OrderModel();
 
     public void loadNextOrderId() throws SQLException {
-        String nextOrderId = orderModel.getNextOrderId();
+        String nextOrderId = orderModel.getNextId();
         txtOrderID.setText(nextOrderId);
     }
 
@@ -360,11 +361,11 @@ public class OrderController implements Initializable {
         }
     }
 
-
+    CustomerDAOImpl customerDAO = new CustomerDAOImpl();
     public void txtSearchContactOnAction(ActionEvent event) {
         String contact = txtSearchContact.getText();
         try {
-            CustomerDto customerDto = OrderModel.findById(contact);
+            CustomerDto customerDto = customerDAO.findByCusId(contact);
 
 
             if (customerDto != null) {
@@ -377,11 +378,11 @@ public class OrderController implements Initializable {
             e.printStackTrace();
         }
     }
-
+ItemModelDAO itemModelDAO = new ItemModelDAO();
     @FXML
     void cmbItemOnAction(ActionEvent event) throws SQLException {
         String selectedItemId = cmbItemID.getSelectionModel().getSelectedItem();
-        ItemDto itemDTO = ItemModel.findById(selectedItemId);
+        ItemDto itemDTO = itemModelDAO.findById(selectedItemId);
 
         // If item found (itemDTO not null)
         if (itemDTO != null) {
@@ -394,7 +395,7 @@ public class OrderController implements Initializable {
     }
 
     private void loadItemId() throws SQLException {
-        ArrayList<String> itemIds = ItemModel.getAllItemIds();
+        ArrayList<String> itemIds = itemModelDAO.getAllIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(itemIds);
         cmbItemID.setItems(observableList);
@@ -402,7 +403,7 @@ public class OrderController implements Initializable {
 
     @FXML
     void genarateReportOnAction(ActionEvent event)   {
-        System.out.println("HI");
+
         OrderTm orderTm = tblOrder.getSelectionModel().getSelectedItem();
 
         if (orderTm == null) {
