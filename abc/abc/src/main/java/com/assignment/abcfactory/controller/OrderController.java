@@ -2,9 +2,8 @@ package com.assignment.abcfactory.controller;
 
 import com.assignment.abcfactory.db.DBConnection;
 import com.assignment.abcfactory.dto.*;
-import com.assignment.abcfactory.dto.tm.CustomerTm;
 import com.assignment.abcfactory.dto.tm.OrderTm;
-import com.assignment.abcfactory.model.CustomerModel;
+import com.assignment.abcfactory.dao.custom.impl.CustomerDAOImpl;
 import com.assignment.abcfactory.model.ItemModel;
 import com.assignment.abcfactory.model.OrderDetailsModel;
 import com.assignment.abcfactory.model.OrderModel;
@@ -246,7 +245,7 @@ public class OrderController implements Initializable {
     @FXML
     void cmbCustomerOnAction(ActionEvent event) throws SQLException {
         String selectedCustomerId = cmbCustomerId.getSelectionModel().getSelectedItem();
-        CustomerDto customerDTO = CustomerModel.findById(selectedCustomerId);
+        CustomerDto customerDTO = CustomerDAOImpl.findById(selectedCustomerId);
 
         if (selectedCustomerId != null) {
             if (customerDTO != null) {

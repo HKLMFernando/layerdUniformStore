@@ -3,8 +3,7 @@ package com.assignment.abcfactory.controller;
 import com.assignment.abcfactory.dto.CustomerDto;
 import com.assignment.abcfactory.dto.FeedBackDto;
 import com.assignment.abcfactory.dto.tm.FeedBackTm;
-import com.assignment.abcfactory.dto.tm.PaymentTm;
-import com.assignment.abcfactory.model.CustomerModel;
+import com.assignment.abcfactory.dao.custom.impl.CustomerDAOImpl;
 
 import com.assignment.abcfactory.model.FeedBackModel;
 import com.assignment.abcfactory.model.OrderModel;
@@ -204,7 +203,7 @@ public class FeedBackController implements Initializable {
     @FXML
     void cmbCustomer(ActionEvent event) throws SQLException {
         String selectedCustomerId = cmbCustomer.getSelectionModel().getSelectedItem();
-        CustomerDto customerDTO = CustomerModel.findById(selectedCustomerId);
+        CustomerDto customerDTO = CustomerDAOImpl.findById(selectedCustomerId);
 
         if (selectedCustomerId != null) {
             if(customerDTO != null) {

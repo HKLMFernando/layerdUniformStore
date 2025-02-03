@@ -1,6 +1,7 @@
-package com.assignment.abcfactory.model;
+package com.assignment.abcfactory.dao.custom.impl;
 
 
+import com.assignment.abcfactory.dao.custom.CustomerDAO;
 import com.assignment.abcfactory.util.CrudUtil;
 import com.assignment.abcfactory.dto.CustomerDto;
 
@@ -11,9 +12,9 @@ import java.util.ArrayList;
 import static com.assignment.abcfactory.util.CrudUtil.execute;
 
 
-public class CustomerModel {
+public class CustomerDAOImpl implements CustomerDAO {
 
-    public String getNextCustomerId() throws SQLException {
+    public String getNextId() throws SQLException {
         ResultSet rst = CrudUtil.execute("select cust_id from customer order by cust_id desc limit 1");
 
         if (rst.next()) {
@@ -26,7 +27,12 @@ public class CustomerModel {
         return "C001"; // Return the default customer ID if no data is found
     }
 
-    public boolean saveCustomer(CustomerDto customerDto) throws SQLException {
+    @Override
+    public CustomerDto search(String id) throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    public boolean save(CustomerDto customerDto) throws SQLException {
         return execute(
                 "insert into customer values (?,?,?,?,?,?)",
                 customerDto.getCust_id(),
@@ -39,7 +45,7 @@ public class CustomerModel {
     }
 
 
-    public ArrayList<CustomerDto> getAllCustomers() throws SQLException {
+    public ArrayList<CustomerDto> getAll() throws SQLException {
         ResultSet rst = CrudUtil.execute("select * from customer");
 
         ArrayList<CustomerDto> customerDTOS = new ArrayList<>();
@@ -59,7 +65,7 @@ public class CustomerModel {
     }
 
 
-    public boolean updateCustomer(CustomerDto customerDTO) throws SQLException {
+    public boolean update(CustomerDto customerDTO) throws SQLException {
         return execute(
                 "update customer set cust_name=?, adress=?, contacts=?, Nic=?, eMail=? where cust_id=?",
                 customerDTO.getCust_name(),
@@ -71,8 +77,13 @@ public class CustomerModel {
         );
     }
 
+    @Override
+    public boolean exist(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
 
-    public boolean deleteCustomer(String customerId) throws SQLException {
+
+    public boolean delete(String customerId) throws SQLException {
         return execute("delete from customer where cust_id=?", customerId);
     }
 
