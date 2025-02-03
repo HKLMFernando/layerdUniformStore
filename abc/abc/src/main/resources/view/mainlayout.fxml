@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="roodnode" prefHeight="638.0" prefWidth="648.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.abcfactory.controller.MainLayoutController">
+   <children>
+      <AnchorPane fx:id="content" prefHeight="638.0" prefWidth="655.0" style="-fx-background-color: #130f4white0;">
+         <children>
+            <Pane prefHeight="637.0" prefWidth="655.0" style="-fx-background-color: #130f40;">
+               <children>
+                  <ImageView fitHeight="266.0" fitWidth="279.0" layoutX="190.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/UniformStore.jpg" />
+                     </image>
+                  </ImageView>
+                  <Pane layoutX="139.0" layoutY="281.0" prefHeight="266.0" prefWidth="398.0" style="-fx-background-color: #211a71; -fx-border-color: #3b3306;">
+                     <children>
+                        <Button layoutX="148.0" layoutY="21.0" mnemonicParsing="false" onAction="#lordOrderPage" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #1026a3; -fx-border-color: #8c7700;" text="Order" textFill="#fffcfc" textOverrun="CENTER_ELLIPSIS">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="24.0" layoutY="144.0" mnemonicParsing="false" onAction="#lordItemPage" prefHeight="100.0" prefWidth="100.0" style="-fx-border-color: #8c7700; -fx-background-color: #1026a3;" text="Items" textFill="#fffcfc" textOverrun="CENTER_ELLIPSIS">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="24.0" layoutY="22.0" mnemonicParsing="false" onAction="#lordCustomerPage" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #1026a3; -fx-border-color: #8c7700;" text="Customer" textFill="#fffcfc" textOverrun="CENTER_ELLIPSIS">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="273.0" layoutY="21.0" mnemonicParsing="false" onAction="#lordPaymentPage" prefHeight="100.0" prefWidth="100.0" style="-fx-border-color: #8c7700; -fx-background-color: #1026a3;" text="Prosses" textFill="#fffcfc" textOverrun="CENTER_ELLIPSIS">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="149.0" layoutY="143.0" mnemonicParsing="false" onAction="#lordFeedBackPage" prefHeight="100.0" prefWidth="100.0" style="-fx-border-color: #8c7700; -fx-background-color: #1026a3;" text="FeedBack" textFill="#fffcfc" textOverrun="CENTER_ELLIPSIS">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="273.0" layoutY="143.0" mnemonicParsing="false" onAction="#lordUserPage" prefHeight="100.0" prefWidth="100.0" style="-fx-border-color: #8c7700; -fx-background-color: #1026a3;" text="User" textFill="#fffcfc" textOverrun="CENTER_ELLIPSIS">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </Pane>
+               </children></Pane>
+         </children></AnchorPane>
+   </children>
+</AnchorPane>

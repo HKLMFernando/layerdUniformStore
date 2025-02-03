@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="content" prefHeight="460.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.abcfactory.controller.MailController">
+   <children>
+      <Label layoutX="72.0" layoutY="53.0" text="Customer Mail">
+         <font>
+            <Font name="Eras Medium ITC" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="72.0" layoutY="111.0" text="SUBJECT">
+         <font>
+            <Font name="Eras Medium ITC" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="72.0" layoutY="167.0" text="DESCRIPTION">
+         <font>
+            <Font name="Eras Medium ITC" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="subject" layoutX="200.0" layoutY="105.0" prefHeight="30.0" prefWidth="295.0" />
+      <TextArea fx:id="description" layoutX="200.0" layoutY="160.0" prefHeight="200.0" prefWidth="295.0" />
+      <Button fx:id="send" layoutX="478.0" layoutY="392.0" mnemonicParsing="false" onAction="#sendAction" prefHeight="30.0" prefWidth="86.0" style="-fx-background-color: red;" text="SEND" textFill="WHITE" />
+      <Button fx:id="homw" layoutX="349.0" layoutY="392.0" mnemonicParsing="false" onAction="#homeAction" prefHeight="30.0" prefWidth="86.0" style="-fx-background-color: red;" text="HOME" textFill="WHITE" />
+      <ComboBox fx:id="combo" layoutX="208.0" layoutY="50.0" prefHeight="26.0" prefWidth="245.0" />
+   </children>
+</AnchorPane>

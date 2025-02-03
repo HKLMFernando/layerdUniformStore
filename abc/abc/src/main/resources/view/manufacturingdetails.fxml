@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="content" prefHeight="637.0" prefWidth="648.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.abcfactory.controller.ManufacturingController">
+   <children>
+      <Label layoutX="113.0" layoutY="28.0" prefHeight="64.0" prefWidth="427.0" text="Manufacturing Details">
+         <font>
+            <Font name="System Bold" size="37.0" />
+         </font>
+      </Label>
+      <Label layoutX="74.0" layoutY="112.0" prefHeight="42.0" prefWidth="178.0" text="Manufacturing ID :-">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="74.0" layoutY="168.0" prefHeight="42.0" prefWidth="178.0" text="Order ID:-">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="74.0" layoutY="226.0" prefHeight="42.0" prefWidth="178.0" text="Prossess:-">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="txtmanuId" layoutX="343.0" layoutY="112.0" prefHeight="42.0" prefWidth="178.0" text="M001">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cmbOrderId" layoutX="339.0" layoutY="168.0" onAction="#cmbOrderonAction" prefHeight="42.0" prefWidth="178.0" />
+      <ComboBox fx:id="cmbProssese" layoutX="339.0" layoutY="226.0" prefHeight="42.0" prefWidth="178.0" />
+      <TableView fx:id="tblManu" layoutX="68.0" layoutY="331.0" onMouseClicked="#tblmanuAction" prefHeight="178.0" prefWidth="535.0">
+        <columns>
+          <TableColumn fx:id="colmanuId" prefWidth="75.0" text="Manufacturing ID" />
+          <TableColumn fx:id="colOrderID" prefWidth="75.0" text="Order Id" />
+            <TableColumn fx:id="colProsses" prefWidth="75.0" text="Prosses" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <Button fx:id="btnhome" layoutX="76.0" layoutY="284.0" mnemonicParsing="false" onAction="#homeonAction" prefHeight="26.0" prefWidth="91.0" style="-fx-background-color: Black;" text="Home" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnupdate" layoutX="285.0" layoutY="283.0" mnemonicParsing="false" onAction="#updateonAction" prefHeight="26.0" prefWidth="91.0" style="-fx-background-color: #383fce;" text="Update" />
+      <Button fx:id="btnDelete" layoutX="399.0" layoutY="284.0" mnemonicParsing="false" onAction="#deleteonAction" prefHeight="26.0" prefWidth="91.0" style="-fx-background-color: #e74c3c;" text="Delete" />
+      <Button fx:id="btmSave" layoutX="511.0" layoutY="284.0" mnemonicParsing="false" onAction="#saveManuOnAction" prefHeight="26.0" prefWidth="91.0" style="-fx-background-color: #2ecc71;" text="Save" />
+   </children>
+</AnchorPane>
