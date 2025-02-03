@@ -1,5 +1,6 @@
-package com.assignment.abcfactory.model;
+package com.assignment.abcfactory.dao.custom.impl;
 
+import com.assignment.abcfactory.dao.custom.FeedBackDAO;
 import com.assignment.abcfactory.dto.FeedBackDto;
 import com.assignment.abcfactory.util.CrudUtil;
 
@@ -7,8 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class FeedBackModel {
-    public static boolean saveFeedBack(FeedBackDto feedbackDTO) throws SQLException {
+public class FeedBackModelDAOImpl implements FeedBackDAO {
+    public boolean save(FeedBackDto feedbackDTO) throws SQLException {
         return CrudUtil.execute(
                 "insert into feed_back values (?,?,?)",
                 feedbackDTO.getFeed_back_Id(),
@@ -18,7 +19,17 @@ public class FeedBackModel {
 
     }
 
-    public static ArrayList<FeedBackDto> getAllFeedBack() throws SQLException {
+    @Override
+    public boolean update(FeedBackDto dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean exist(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    public ArrayList<FeedBackDto> getAll() throws SQLException {
         // Execute SQL query to get all item IDs
         ArrayList<FeedBackDto> feedbacks = new ArrayList<>();
 
@@ -36,7 +47,7 @@ public class FeedBackModel {
 
     }
 
-    public static String getNextFeedBackId() throws SQLException {
+    public String getNextId() throws SQLException {
         ResultSet rst = CrudUtil.execute("select feed_back_id from feed_back order by feed_back_id desc limit 1");
 
         if (rst.next()) {
@@ -50,7 +61,12 @@ public class FeedBackModel {
 
     }
 
-    public boolean deletefeedback(String feedbackID) throws SQLException {
+    @Override
+    public FeedBackDto search(String id) throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    public boolean delete(String feedbackID) throws SQLException {
         return CrudUtil.execute("delete from feed_back where feed_back_id = ?", feedbackID);
     }
 }

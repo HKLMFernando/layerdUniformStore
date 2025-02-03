@@ -1,12 +1,8 @@
 package com.assignment.abcfactory.controller;
 
-import com.assignment.abcfactory.dto.ItemDto;
 import com.assignment.abcfactory.dto.OrderDto;
 import com.assignment.abcfactory.dto.PaymentDto;
-import com.assignment.abcfactory.dto.tm.CustomerTm;
 import com.assignment.abcfactory.dto.tm.PaymentTm;
-import com.assignment.abcfactory.model.ItemModel;
-import com.assignment.abcfactory.model.OrderModel;
 import com.assignment.abcfactory.model.PaymentModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

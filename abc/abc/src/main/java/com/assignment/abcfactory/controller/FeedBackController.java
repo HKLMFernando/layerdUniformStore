@@ -5,7 +5,7 @@ import com.assignment.abcfactory.dto.FeedBackDto;
 import com.assignment.abcfactory.dto.tm.FeedBackTm;
 import com.assignment.abcfactory.dao.custom.impl.CustomerDAOImpl;
 
-import com.assignment.abcfactory.model.FeedBackModel;
+import com.assignment.abcfactory.dao.custom.impl.FeedBackModelDAOImpl;
 import com.assignment.abcfactory.model.OrderModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -83,7 +83,7 @@ public class FeedBackController implements Initializable {
 
     @FXML
     private Label txtFeedbackId;
-    FeedBackModel feedBackModel = new FeedBackModel();
+    FeedBackModelDAOImpl feedBackModel = new FeedBackModelDAOImpl();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colFeedbackId.setCellValueFactory(new PropertyValueFactory<>("feed_back_id"));
@@ -106,7 +106,7 @@ public class FeedBackController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.YES) {
-            boolean isDeleted = feedBackModel.deletefeedback(feedbackID);
+            boolean isDeleted = feedBackModel.delete(feedbackID);
             if (isDeleted){
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "FeedBack  deleted...!").show();
@@ -129,9 +129,9 @@ public class FeedBackController implements Initializable {
                 Feedback,
                 CustomerId
         );
+        FeedBackModelDAOImpl feedBackModel = new FeedBackModelDAOImpl();
 
-
-        boolean isSaved = FeedBackModel.saveFeedBack(feedbackDTO);
+        boolean isSaved = feedBackModel.save(feedbackDTO);
         if (isSaved) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "FeedBack saved...!").show();
@@ -175,7 +175,7 @@ public class FeedBackController implements Initializable {
     }
 
     private void loadTableData() throws SQLException {
-        ArrayList<FeedBackDto> feedBackDtos = FeedBackModel.getAllFeedBack();
+        ArrayList<FeedBackDto> feedBackDtos = feedBackModel.getAll();
 
         ObservableList<FeedBackTm> feedBackTms = FXCollections.observableArrayList();
 
@@ -193,7 +193,7 @@ public class FeedBackController implements Initializable {
     }
 
     private void loadNextFeedbackId() throws SQLException {
-        String nextID = FeedBackModel.getNextFeedBackId();
+        String nextID = feedBackModel.getNextId();
         txtFeedbackId.setText(nextID);
     }
 

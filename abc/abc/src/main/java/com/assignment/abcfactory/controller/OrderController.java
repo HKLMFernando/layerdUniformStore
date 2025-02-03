@@ -4,7 +4,7 @@ import com.assignment.abcfactory.db.DBConnection;
 import com.assignment.abcfactory.dto.*;
 import com.assignment.abcfactory.dto.tm.OrderTm;
 import com.assignment.abcfactory.dao.custom.impl.CustomerDAOImpl;
-import com.assignment.abcfactory.model.ItemModel;
+import com.assignment.abcfactory.dao.custom.impl.ItemModel;
 import com.assignment.abcfactory.model.OrderDetailsModel;
 import com.assignment.abcfactory.model.OrderModel;
 import javafx.collections.FXCollections;

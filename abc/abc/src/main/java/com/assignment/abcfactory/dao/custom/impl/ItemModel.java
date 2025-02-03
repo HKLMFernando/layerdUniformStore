@@ -1,4 +1,4 @@
-package com.assignment.abcfactory.model;
+package com.assignment.abcfactory.dao.custom.impl;
 
 import com.assignment.abcfactory.dto.ItemDto;
 import com.assignment.abcfactory.util.CrudUtil;
