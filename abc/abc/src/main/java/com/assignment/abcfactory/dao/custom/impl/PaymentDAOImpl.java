@@ -1,15 +1,12 @@
 package com.assignment.abcfactory.dao.custom.impl;
 
 import com.assignment.abcfactory.dao.custom.PaymentDAO;
-import com.assignment.abcfactory.dto.OrderDto;
-import com.assignment.abcfactory.dto.PaymentDto;
-import com.assignment.abcfactory.util.CrudUtil;
+import com.assignment.abcfactory.model.PaymentDto;
+import com.assignment.abcfactory.dao.CrudUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import static com.assignment.abcfactory.util.CrudUtil.execute;
 
 public class PaymentDAOImpl implements PaymentDAO {
 

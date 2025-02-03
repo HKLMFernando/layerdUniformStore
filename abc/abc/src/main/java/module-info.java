@@ -10,5 +10,5 @@ module com.assignment.abcfactory {
 
     opens com.assignment.abcfactory.controller to javafx.fxml;
     exports com.assignment.abcfactory;
-    opens com.assignment.abcfactory.dto.tm to javafx.base;
+    opens com.assignment.abcfactory.view.tdm to javafx.base;
 }

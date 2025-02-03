@@ -1,9 +1,10 @@
 package com.assignment.abcfactory.controller;
 
-import com.assignment.abcfactory.dto.CustomerDto;
-import com.assignment.abcfactory.dto.FeedBackDto;
-import com.assignment.abcfactory.dto.tm.FeedBackTm;
-import com.assignment.abcfactory.dao.custom.impl.CustomerDAOImpl;
+import com.assignment.abcfactory.bo.CustomerBoImpl;
+import com.assignment.abcfactory.bo.FeedBackBoImpl;
+import com.assignment.abcfactory.model.CustomerDto;
+import com.assignment.abcfactory.model.FeedBackDto;
+import com.assignment.abcfactory.view.tdm.FeedBackTm;
 
 import com.assignment.abcfactory.dao.custom.impl.FeedBackModelDAOImpl;
 import javafx.collections.FXCollections;
@@ -61,12 +62,12 @@ public class FeedBackController implements Initializable {
     @FXML
     private TextField txtSearchContact;
 
-    CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+    CustomerBoImpl customerBo = new CustomerBoImpl();
     @FXML
     void txtSearchContactOnAction(ActionEvent event) {
         String contact = txtSearchContact.getText();
         try {
-            CustomerDto customerDto = customerDAO.findByCusId(contact);
+            CustomerDto customerDto = customerBo.findByCusId(contact);
 
 
             if (customerDto != null) {
@@ -129,9 +130,9 @@ public class FeedBackController implements Initializable {
                 Feedback,
                 CustomerId
         );
-        FeedBackModelDAOImpl feedBackModel = new FeedBackModelDAOImpl();
+        FeedBackBoImpl feedBackBo = new FeedBackBoImpl();
 
-        boolean isSaved = feedBackModel.save(feedbackDTO);
+        boolean isSaved = feedBackBo.save(feedbackDTO);
         if (isSaved) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "FeedBack saved...!").show();
@@ -203,7 +204,7 @@ public class FeedBackController implements Initializable {
     @FXML
     void cmbCustomer(ActionEvent event) throws SQLException {
         String selectedCustomerId = cmbCustomer.getSelectionModel().getSelectedItem();
-        CustomerDto customerDTO = CustomerDAOImpl.findById(selectedCustomerId);
+        CustomerDto customerDTO = customerBo.findById(selectedCustomerId);
 
         if (selectedCustomerId != null) {
             if(customerDTO != null) {

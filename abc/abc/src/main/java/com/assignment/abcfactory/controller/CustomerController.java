@@ -1,8 +1,8 @@
 package com.assignment.abcfactory.controller;
 
-import com.assignment.abcfactory.dto.CustomerDto;
-import com.assignment.abcfactory.dto.tm.CustomerTm;
-import com.assignment.abcfactory.dao.custom.impl.CustomerDAOImpl;
+import com.assignment.abcfactory.bo.CustomerBoImpl;
+import com.assignment.abcfactory.model.CustomerDto;
+import com.assignment.abcfactory.view.tdm.CustomerTm;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -116,7 +116,7 @@ public class CustomerController implements Initializable {
         Optional<ButtonType> optionalButtonType = alert.showAndWait();
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
-            if (customerModel.delete(customerId)) {
+            if (customerBo.delete(customerId)) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Customer deleted!").show();
             } else {
@@ -168,7 +168,7 @@ public class CustomerController implements Initializable {
                 email
         );
 
-        boolean isSaved = customerModel.save(customerDTO);
+        boolean isSaved = customerBo.save(customerDTO);
         if (isSaved) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Customer saved successfully!").show();
@@ -221,7 +221,7 @@ public class CustomerController implements Initializable {
                 email
         );
 
-        if (customerModel.update(customerDTO)) {
+        if (customerBo.update(customerDTO)) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Customer updated!").show();
         } else {
@@ -288,14 +288,14 @@ public class CustomerController implements Initializable {
     }
 
     public void loadNextCustomerId() throws SQLException {
-        String nextCustomerId = customerModel.getNextId();
+        String nextCustomerId = customerBo.getNextId();
         txtCustId.setText(nextCustomerId);
     }
 
-    CustomerDAOImpl customerModel = new CustomerDAOImpl();
+    CustomerBoImpl customerBo = new CustomerBoImpl();
 
     private void loadTableData() throws SQLException {
-        ArrayList<CustomerDto> customerDTOS = customerModel.getAll();
+        ArrayList<CustomerDto> customerDTOS = customerBo.getAll();
 
         ObservableList<CustomerTm> customerTms = FXCollections.observableArrayList();
 

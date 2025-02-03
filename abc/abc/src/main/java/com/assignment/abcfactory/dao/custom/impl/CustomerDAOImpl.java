@@ -2,14 +2,14 @@ package com.assignment.abcfactory.dao.custom.impl;
 
 
 import com.assignment.abcfactory.dao.custom.CustomerDAO;
-import com.assignment.abcfactory.util.CrudUtil;
-import com.assignment.abcfactory.dto.CustomerDto;
+import com.assignment.abcfactory.dao.CrudUtil;
+import com.assignment.abcfactory.model.CustomerDto;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static com.assignment.abcfactory.util.CrudUtil.execute;
+import static com.assignment.abcfactory.dao.CrudUtil.execute;
 
 
 public class CustomerDAOImpl implements CustomerDAO {
@@ -101,7 +101,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
 
-    public static CustomerDto findById(String selectedCusId) throws SQLException {
+    public CustomerDto findById(String selectedCusId) throws SQLException {
         ResultSet rst = CrudUtil.execute("select * from customer where cust_id=?", selectedCusId);
 
         if (rst.next()) {

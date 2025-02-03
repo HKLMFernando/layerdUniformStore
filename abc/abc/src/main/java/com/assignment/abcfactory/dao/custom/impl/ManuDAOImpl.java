@@ -1,15 +1,15 @@
 package com.assignment.abcfactory.dao.custom.impl;
 
 import com.assignment.abcfactory.dao.custom.ManuDAO;
-import com.assignment.abcfactory.dto.ManuDto;
-import com.assignment.abcfactory.dto.OrderDto;
-import com.assignment.abcfactory.util.CrudUtil;
+import com.assignment.abcfactory.model.ManuDto;
+import com.assignment.abcfactory.model.OrderDto;
+import com.assignment.abcfactory.dao.CrudUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static com.assignment.abcfactory.util.CrudUtil.execute;
+import static com.assignment.abcfactory.dao.CrudUtil.execute;
 
 public class ManuDAOImpl implements ManuDAO {
 
@@ -35,7 +35,7 @@ public class ManuDAOImpl implements ManuDAO {
     }
 
 
-    public static OrderDto findByOrderId(String selectedOrderId) throws SQLException {
+    public  OrderDto findByOrderId(String selectedOrderId) throws SQLException {
         ResultSet rst = CrudUtil.execute("select * from orders where order_id=?", selectedOrderId);
 
         if (rst.next()) {

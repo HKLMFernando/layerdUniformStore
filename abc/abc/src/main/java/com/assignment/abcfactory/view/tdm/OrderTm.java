@@ -1,4 +1,4 @@
-package com.assignment.abcfactory.dto;
+package com.assignment.abcfactory.view.tdm;
 
 import lombok.*;
 
@@ -7,10 +7,10 @@ import java.util.Date;
 
 @Getter
 @Setter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderAndDetailDto {
+@ToString
+public class OrderTm {
     private String order_id;
     private String cust_id;
     private String item_id;

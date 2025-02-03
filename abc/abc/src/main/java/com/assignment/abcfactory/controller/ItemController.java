@@ -1,8 +1,8 @@
 package com.assignment.abcfactory.controller;
 
-import com.assignment.abcfactory.dto.ItemDto;
-import com.assignment.abcfactory.dto.tm.ItemTm;
-import com.assignment.abcfactory.dao.custom.impl.ItemDAOImpl;
+import com.assignment.abcfactory.bo.ItemBoImpl;
+import com.assignment.abcfactory.model.ItemDto;
+import com.assignment.abcfactory.view.tdm.ItemTm;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -118,10 +118,10 @@ public class ItemController implements Initializable {
         }
     }
 
-    ItemDAOImpl itemModel = new ItemDAOImpl();
+    ItemBoImpl itemBo = new ItemBoImpl();
 
     private void loadTableData() throws SQLException {
-        ArrayList<ItemDto> itemDTOS = itemModel.getAll();
+        ArrayList<ItemDto> itemDTOS = itemBo.getAll();
         ObservableList<ItemTm> itemTMS = FXCollections.observableArrayList();
 
         for (ItemDto itemDTO : itemDTOS) {
@@ -141,7 +141,7 @@ public class ItemController implements Initializable {
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
-            boolean isDeleted = itemModel.delete(itemId);
+            boolean isDeleted = itemBo.delete(itemId);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Item deleted...!").show();
@@ -162,7 +162,7 @@ public class ItemController implements Initializable {
 
         );
 
-        boolean isSaved = itemModel.save(itemDTO);
+        boolean isSaved = itemBo.save(itemDTO);
         if (isSaved) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Item saved...!").show();
@@ -179,7 +179,7 @@ public class ItemController implements Initializable {
                 itemId,
                 itemName
         );
-        boolean isUpdate = itemModel.update(itemDTO);
+        boolean isUpdate = itemBo.update(itemDTO);
         if (isUpdate) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Item update...!").show();

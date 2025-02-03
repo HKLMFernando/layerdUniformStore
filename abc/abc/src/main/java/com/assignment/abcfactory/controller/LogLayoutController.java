@@ -1,7 +1,7 @@
 package com.assignment.abcfactory.controller;
 
-import com.assignment.abcfactory.dto.UserDto;
-import com.assignment.abcfactory.dao.custom.impl.UserDAOImpl;
+import com.assignment.abcfactory.bo.UserBoImpl;
+import com.assignment.abcfactory.model.UserDto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,13 +24,13 @@ public class LogLayoutController {
     @FXML
     private TextField txtUsername;
 
-    UserDAOImpl userDAO = new UserDAOImpl();
+    UserBoImpl userBo = new UserBoImpl();
     @FXML
     public void btnLogInAction(ActionEvent actionEvent) throws IOException {
         String username = txtUsername.getText();
         String password = txtPassword.getText();
 
-        UserDto user = userDAO.authenticateUser(username, password);
+        UserDto user = userBo.authenticateUser(username, password);
 
         if (user != null) {
             navigateTo("/view/mainlayout.fxml");

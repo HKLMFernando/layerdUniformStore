@@ -1,14 +1,13 @@
-package com.assignment.abcfactory.dto.tm;
+package com.assignment.abcfactory.model;
 
 import lombok.*;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
-
-public class UserTm {
+public class UserDto {
     private String user_name;
     private String password;
 }

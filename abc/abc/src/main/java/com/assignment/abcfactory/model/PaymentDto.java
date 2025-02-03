@@ -1,8 +1,6 @@
-package com.assignment.abcfactory.dto;
+package com.assignment.abcfactory.model;
 
 import lombok.*;
-
-import java.util.ArrayList;
 
 @Getter
 @Setter

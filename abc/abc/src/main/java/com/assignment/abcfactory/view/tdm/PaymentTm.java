@@ -1,4 +1,4 @@
-package com.assignment.abcfactory.dto.tm;
+package com.assignment.abcfactory.view.tdm;
 
 import lombok.*;
 

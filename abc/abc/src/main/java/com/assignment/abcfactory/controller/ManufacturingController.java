@@ -1,7 +1,7 @@
 package com.assignment.abcfactory.controller;
 
-import com.assignment.abcfactory.dto.ManuDto;
-import com.assignment.abcfactory.dto.tm.ManuTm;
+import com.assignment.abcfactory.model.ManuDto;
+import com.assignment.abcfactory.view.tdm.ManuTm;
 import com.assignment.abcfactory.dao.custom.impl.ManuDAOImpl;
 import com.assignment.abcfactory.dao.custom.impl.OrderDAOImpl;
 import javafx.collections.FXCollections;

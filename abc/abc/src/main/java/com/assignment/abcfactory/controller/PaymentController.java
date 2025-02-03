@@ -1,10 +1,10 @@
 package com.assignment.abcfactory.controller;
 
-import com.assignment.abcfactory.dao.custom.impl.OrderDAOImpl;
-import com.assignment.abcfactory.dto.OrderDto;
-import com.assignment.abcfactory.dto.PaymentDto;
-import com.assignment.abcfactory.dto.tm.PaymentTm;
-import com.assignment.abcfactory.dao.custom.impl.PaymentDAOImpl;
+import com.assignment.abcfactory.bo.OrderBoImpl;
+import com.assignment.abcfactory.bo.PaymentBoImpl;
+import com.assignment.abcfactory.model.OrderDto;
+import com.assignment.abcfactory.model.PaymentDto;
+import com.assignment.abcfactory.view.tdm.PaymentTm;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -98,14 +98,14 @@ public class PaymentController implements Initializable {
         }
         double payment = Double.parseDouble(paymentText);
 
-        if (paymentModel.isOrderAlreadyPaid(orderId)) {
+        if (paymentBo.isOrderAlreadyPaid(orderId)) {
             new Alert(Alert.AlertType.ERROR, "Payment is already recorded for Order ID: " + orderId).show();
             return;
         }
 
         PaymentDto paymentDTO = new PaymentDto(paymentId, payMethod, date, payment, orderId);
 
-        boolean isSaved = paymentModel.save(paymentDTO);
+        boolean isSaved = paymentBo.save(paymentDTO);
         if (isSaved) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Payment saved...!").show();
@@ -123,7 +123,7 @@ public class PaymentController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.YES) {
-            boolean isDeleted = paymentModel.delete(payID);
+            boolean isDeleted = paymentBo.delete(payID);
             if (isDeleted){
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Payment deleted...!").show();
@@ -154,7 +154,7 @@ public class PaymentController implements Initializable {
     }
 
 
-    PaymentDAOImpl paymentModel = new PaymentDAOImpl();
+    PaymentBoImpl paymentBo = new PaymentBoImpl();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -189,7 +189,7 @@ public class PaymentController implements Initializable {
     }
 
     private void loadTableData() throws SQLException {
-        ArrayList<PaymentDto> paymentDtos = paymentModel.getAll();
+        ArrayList<PaymentDto> paymentDtos = paymentBo.getAll();
 
         ObservableList<PaymentTm> paymentTms = FXCollections.observableArrayList();
 
@@ -209,7 +209,7 @@ public class PaymentController implements Initializable {
     }
 
     private void loadNextPaymentId() throws SQLException {
-        String nextPaymentId = paymentModel.getNextId();
+        String nextPaymentId = paymentBo.getNextId();
         txtPaymentId.setText(nextPaymentId);
 
     }
@@ -231,23 +231,23 @@ public class PaymentController implements Initializable {
     }
 
     private void loadOrderId() throws SQLException {
-        ArrayList<String> orderIds = orderModel.getAllOrderIds();
+        ArrayList<String> orderIds = orderBo.getAllOrderIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(orderIds);
         cmbOrderId.setItems(observableList);
     }
-    OrderDAOImpl orderModel = new OrderDAOImpl();
+    OrderBoImpl orderBo = new OrderBoImpl();
     @FXML
     void orderIdComboboxAction(ActionEvent event) throws SQLException {
 
         try {
             String selectedOrderId = cmbOrderId.getSelectionModel().getSelectedItem();
             if (selectedOrderId != null) {
-                OrderDto orderDto = orderModel.findByOrderId(selectedOrderId);
+                OrderDto orderDto = orderBo.findByOrderId(selectedOrderId);
 
                 if (orderDto != null) {
                     lblDate.setText(orderDto.getOrder_date().toString());
-                    double paymentAmount = paymentModel.getPaymont(selectedOrderId);
+                    double paymentAmount = paymentBo.getPaymont(selectedOrderId);
                     payAmount.setText(String.valueOf(paymentAmount));
                 } else {
                     new Alert(Alert.AlertType.WARNING, "Order not found for ID: " + selectedOrderId).show();

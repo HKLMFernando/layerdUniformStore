@@ -1,7 +1,7 @@
 package com.assignment.abcfactory.dao.custom;
 
 import com.assignment.abcfactory.dao.CrudDAO;
-import com.assignment.abcfactory.dto.ItemDto;
+import com.assignment.abcfactory.model.ItemDto;
 
 public interface ItemDAO extends CrudDAO<ItemDto> {
 }

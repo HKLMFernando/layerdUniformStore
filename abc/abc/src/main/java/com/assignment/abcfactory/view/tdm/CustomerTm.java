@@ -1,4 +1,4 @@
-package com.assignment.abcfactory.dto;
+package com.assignment.abcfactory.view.tdm;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerDto {
+public class CustomerTm {
     private String cust_id;
     private String cust_name;
     private String adress;
@@ -15,3 +15,4 @@ public class CustomerDto {
     private String Nic;
     private String eMail;
 }
+

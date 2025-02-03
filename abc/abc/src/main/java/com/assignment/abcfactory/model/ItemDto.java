@@ -1,4 +1,4 @@
-package com.assignment.abcfactory.dto;
+package com.assignment.abcfactory.model;
 
 import lombok.*;
 

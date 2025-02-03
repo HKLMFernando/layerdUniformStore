@@ -1,12 +1,12 @@
 package com.assignment.abcfactory.controller;
 
+import com.assignment.abcfactory.bo.OrderBoImpl;
+import com.assignment.abcfactory.bo.OrderDetailsBoImpl;
 import com.assignment.abcfactory.db.DBConnection;
-import com.assignment.abcfactory.dto.*;
-import com.assignment.abcfactory.dto.tm.OrderTm;
+import com.assignment.abcfactory.view.tdm.OrderTm;
 import com.assignment.abcfactory.dao.custom.impl.CustomerDAOImpl;
 import com.assignment.abcfactory.dao.custom.impl.ItemDAOImpl;
-import com.assignment.abcfactory.dao.custom.impl.OrderDetailsDAOImpl;
-import com.assignment.abcfactory.dao.custom.impl.OrderDAOImpl;
+import com.assignment.abcfactory.model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -158,8 +158,8 @@ public class OrderController implements Initializable {
         OrderDto orderDto = new OrderDto(orderId, orderDate, dueDate, qty, price, customerId);
         OrderDetailsDto orderDetailDto = new OrderDetailsDto(itemId, orderId, total);
 
-        boolean isUpdatedO = orderModel.update(orderDto);
-        boolean isUpdatedOD = orderDetailsModel.update(orderDetailDto);
+        boolean isUpdatedO = orderBo.update(orderDto);
+        boolean isUpdatedOD = orderDetailsBo.update(orderDetailDto);
 
         if (isUpdatedO && isUpdatedOD) {
             refreshPage();
@@ -191,7 +191,7 @@ public class OrderController implements Initializable {
 
     }
 
-    OrderDetailsDAOImpl orderDetailsModel = new OrderDetailsDAOImpl();
+    OrderDetailsBoImpl orderDetailsBo = new OrderDetailsBoImpl();
 
     @FXML
     void addTable(ActionEvent event) throws Exception {
@@ -230,8 +230,8 @@ public class OrderController implements Initializable {
         OrderDto orderDto = new OrderDto(orderId, orderDate, dueDate, qty, price, customerId);
         OrderDetailsDto orderDetailDto = new OrderDetailsDto(orderId, itemId, total);
 
-        boolean isSavedOrder = orderModel.save(orderDto);
-        boolean isSavedOrderDetail = orderDetailsModel.save(orderDetailDto);
+        boolean isSavedOrder = orderBo.save(orderDto);
+        boolean isSavedOrderDetail = orderDetailsBo.save(orderDetailDto);
 
         if (isSavedOrder && isSavedOrderDetail) {
             refreshPage();
@@ -245,7 +245,7 @@ public class OrderController implements Initializable {
     @FXML
     void cmbCustomerOnAction(ActionEvent event) throws SQLException {
         String selectedCustomerId = cmbCustomerId.getSelectionModel().getSelectedItem();
-        CustomerDto customerDTO = CustomerDAOImpl.findById(selectedCustomerId);
+        CustomerDto customerDTO = customerDAO.findById(selectedCustomerId);
 
         if (selectedCustomerId != null) {
             if (customerDTO != null) {
@@ -315,15 +315,15 @@ public class OrderController implements Initializable {
 
     }
 
-    OrderDAOImpl orderModel = new OrderDAOImpl();
+    OrderBoImpl orderBo = new OrderBoImpl();
 
-    public void loadNextOrderId() throws SQLException {
-        String nextOrderId = orderModel.getNextId();
+    public void loadNextOrderId() throws SQLException, ClassNotFoundException {
+        String nextOrderId = orderBo.getNextId();
         txtOrderID.setText(nextOrderId);
     }
 
     private void loadTableData() throws SQLException {
-        ArrayList<OrderAndDetailDto> orderAndDetailDtos = orderModel.getAllOrders();
+        ArrayList<OrderAndDetailDto> orderAndDetailDtos = orderBo.getAllOrders();
 
         ObservableList<OrderTm> orderTms = FXCollections.observableArrayList();
 

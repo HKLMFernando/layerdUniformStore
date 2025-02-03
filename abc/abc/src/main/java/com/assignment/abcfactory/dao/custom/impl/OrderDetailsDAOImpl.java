@@ -1,8 +1,8 @@
 package com.assignment.abcfactory.dao.custom.impl;
 
 
-import com.assignment.abcfactory.dto.OrderDetailsDto;
-import com.assignment.abcfactory.util.CrudUtil;
+import com.assignment.abcfactory.model.OrderDetailsDto;
+import com.assignment.abcfactory.dao.CrudUtil;
 
 import java.sql.SQLException;
 

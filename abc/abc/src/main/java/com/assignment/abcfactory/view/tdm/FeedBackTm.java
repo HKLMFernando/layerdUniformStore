@@ -1,6 +1,5 @@
-package com.assignment.abcfactory.dto.tm;
+package com.assignment.abcfactory.view.tdm;
 
-import com.assignment.abcfactory.dto.FeedBackDto;
 import lombok.*;
 
 @Getter

@@ -1,8 +1,8 @@
 package com.assignment.abcfactory.controller;
 
-import com.assignment.abcfactory.dto.UserDto;
-import com.assignment.abcfactory.dto.tm.UserTm;
-import com.assignment.abcfactory.dao.custom.impl.UserDAOImpl;
+import com.assignment.abcfactory.bo.UserBoImpl;
+import com.assignment.abcfactory.model.UserDto;
+import com.assignment.abcfactory.view.tdm.UserTm;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -72,10 +72,10 @@ public class UserController {
         txtPassword.setText("");
 
     }
-    UserDAOImpl userModel = new UserDAOImpl();
+    UserBoImpl userBo = new UserBoImpl();
 
     private void loadTableData()throws SQLException {
-        ArrayList<UserDto> userDTOS = userModel.getAll();
+        ArrayList<UserDto> userDTOS = userBo.getAll();
         ObservableList<UserTm> userTMS = FXCollections.observableArrayList();
 
         for (UserDto userDTO : userDTOS) {
@@ -94,7 +94,7 @@ public class UserController {
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
-            boolean isDeleted = userModel.delete(UserName);
+            boolean isDeleted = userBo.delete(UserName);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Item deleted...!").show();
@@ -118,7 +118,7 @@ public class UserController {
 
         );
 
-        boolean isSaved = userModel.save(userDTO);
+        boolean isSaved = userBo.save(userDTO);
         if (isSaved) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "User saved...!").show();
@@ -173,7 +173,7 @@ public class UserController {
                 UserName,
                 Password
         );
-        boolean isUpdate = userModel.update(userDTO);
+        boolean isUpdate = userBo.update(userDTO);
         if (isUpdate) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "User Profile update...!").show();

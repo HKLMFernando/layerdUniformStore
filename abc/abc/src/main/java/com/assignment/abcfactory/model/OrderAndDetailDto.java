@@ -1,19 +1,19 @@
-package com.assignment.abcfactory.dto;
+package com.assignment.abcfactory.model;
 
 import lombok.*;
 
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-public class OrderDto {
+public class OrderAndDetailDto {
     private String order_id;
+    private String cust_id;
+    private String item_id;
     private String order_date;
     private String due_date;
     private int qty;
     private double price_per_unit;
-    private String cust_id;
-
-
+    private double total;
 }

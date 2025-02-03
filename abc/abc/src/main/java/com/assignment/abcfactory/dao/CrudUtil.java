@@ -1,4 +1,4 @@
-package com.assignment.abcfactory.util;
+package com.assignment.abcfactory.dao;
 
 import com.assignment.abcfactory.db.DBConnection;
 

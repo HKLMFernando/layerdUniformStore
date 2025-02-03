@@ -1,8 +1,8 @@
 package com.assignment.abcfactory.dao.custom.impl;
 
 import com.assignment.abcfactory.dao.custom.UserDAO;
-import com.assignment.abcfactory.dto.UserDto;
-import com.assignment.abcfactory.util.CrudUtil;
+import com.assignment.abcfactory.model.UserDto;
+import com.assignment.abcfactory.dao.CrudUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

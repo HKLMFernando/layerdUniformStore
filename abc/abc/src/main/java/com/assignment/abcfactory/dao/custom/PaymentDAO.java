@@ -1,7 +1,7 @@
 package com.assignment.abcfactory.dao.custom;
 
 import com.assignment.abcfactory.dao.CrudDAO;
-import com.assignment.abcfactory.dto.PaymentDto;
+import com.assignment.abcfactory.model.PaymentDto;
 
 import java.sql.SQLException;
 
