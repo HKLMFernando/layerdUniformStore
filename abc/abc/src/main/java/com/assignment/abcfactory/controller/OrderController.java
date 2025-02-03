@@ -1,13 +1,12 @@
 package com.assignment.abcfactory.controller;
 
-import com.assignment.abcfactory.dao.custom.CustomerDAO;
 import com.assignment.abcfactory.db.DBConnection;
 import com.assignment.abcfactory.dto.*;
 import com.assignment.abcfactory.dto.tm.OrderTm;
 import com.assignment.abcfactory.dao.custom.impl.CustomerDAOImpl;
-import com.assignment.abcfactory.dao.custom.impl.ItemModelDAO;
-import com.assignment.abcfactory.model.OrderDetailsModel;
-import com.assignment.abcfactory.dao.custom.impl.OrderModel;
+import com.assignment.abcfactory.dao.custom.impl.ItemDAOImpl;
+import com.assignment.abcfactory.dao.custom.impl.OrderDetailsDAOImpl;
+import com.assignment.abcfactory.dao.custom.impl.OrderDAOImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -160,7 +159,7 @@ public class OrderController implements Initializable {
         OrderDetailsDto orderDetailDto = new OrderDetailsDto(itemId, orderId, total);
 
         boolean isUpdatedO = orderModel.update(orderDto);
-        boolean isUpdatedOD = orderDetailsModel.updateOrders(orderDetailDto);
+        boolean isUpdatedOD = orderDetailsModel.update(orderDetailDto);
 
         if (isUpdatedO && isUpdatedOD) {
             refreshPage();
@@ -192,7 +191,7 @@ public class OrderController implements Initializable {
 
     }
 
-    OrderDetailsModel orderDetailsModel = new OrderDetailsModel();
+    OrderDetailsDAOImpl orderDetailsModel = new OrderDetailsDAOImpl();
 
     @FXML
     void addTable(ActionEvent event) throws Exception {
@@ -232,7 +231,7 @@ public class OrderController implements Initializable {
         OrderDetailsDto orderDetailDto = new OrderDetailsDto(orderId, itemId, total);
 
         boolean isSavedOrder = orderModel.save(orderDto);
-        boolean isSavedOrderDetail = orderDetailsModel.saveOrder(orderDetailDto);
+        boolean isSavedOrderDetail = orderDetailsModel.save(orderDetailDto);
 
         if (isSavedOrder && isSavedOrderDetail) {
             refreshPage();
@@ -316,7 +315,7 @@ public class OrderController implements Initializable {
 
     }
 
-    OrderModel orderModel = new OrderModel();
+    OrderDAOImpl orderModel = new OrderDAOImpl();
 
     public void loadNextOrderId() throws SQLException {
         String nextOrderId = orderModel.getNextId();
@@ -378,7 +377,7 @@ public class OrderController implements Initializable {
             e.printStackTrace();
         }
     }
-ItemModelDAO itemModelDAO = new ItemModelDAO();
+ItemDAOImpl itemModelDAO = new ItemDAOImpl();
     @FXML
     void cmbItemOnAction(ActionEvent event) throws SQLException {
         String selectedItemId = cmbItemID.getSelectionModel().getSelectedItem();

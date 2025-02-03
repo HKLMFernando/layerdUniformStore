@@ -10,4 +10,5 @@ import java.util.ArrayList;
 public interface OrderDAO extends CrudDAO<OrderDto> {
     ArrayList<OrderAndDetailDto> getAllOrders() throws SQLException;
     ArrayList<String> getAllOrderIds() throws SQLException;
+    OrderDto findByOrderId(String selectedOrderId) throws SQLException;
 }

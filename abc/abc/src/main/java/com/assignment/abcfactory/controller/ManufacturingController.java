@@ -2,8 +2,8 @@ package com.assignment.abcfactory.controller;
 
 import com.assignment.abcfactory.dto.ManuDto;
 import com.assignment.abcfactory.dto.tm.ManuTm;
-import com.assignment.abcfactory.dao.custom.impl.ManuModelDAO;
-import com.assignment.abcfactory.dao.custom.impl.OrderModel;
+import com.assignment.abcfactory.dao.custom.impl.ManuDAOImpl;
+import com.assignment.abcfactory.dao.custom.impl.OrderDAOImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -155,7 +155,7 @@ public class ManufacturingController implements Initializable {
         }
 
     }
-    ManuModelDAO manuModel = new ManuModelDAO();
+    ManuDAOImpl manuModel = new ManuDAOImpl();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colmanuId.setCellValueFactory(new PropertyValueFactory<>("manufacturing_id"));
@@ -206,7 +206,7 @@ public class ManufacturingController implements Initializable {
         }
         tblManu.setItems(manuTms);
     }
-    OrderModel orderModel = new OrderModel();
+    OrderDAOImpl orderModel = new OrderDAOImpl();
     private void loadOrderId() throws SQLException {
         ArrayList<String> orderIds = orderModel.getAllOrderIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();

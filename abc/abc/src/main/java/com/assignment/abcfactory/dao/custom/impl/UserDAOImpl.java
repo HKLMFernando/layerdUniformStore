@@ -1,6 +1,6 @@
-package com.assignment.abcfactory.model;
+package com.assignment.abcfactory.dao.custom.impl;
 
-import com.assignment.abcfactory.dto.ItemDto;
+import com.assignment.abcfactory.dao.custom.UserDAO;
 import com.assignment.abcfactory.dto.UserDto;
 import com.assignment.abcfactory.util.CrudUtil;
 
@@ -8,11 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static com.assignment.abcfactory.util.CrudUtil.execute;
+public class UserDAOImpl implements UserDAO {
 
-public class UserModel {
-
-    public static ArrayList<UserDto> getAllItems() throws SQLException {
+    public  ArrayList<UserDto> getAll() throws SQLException {
         // Execute SQL query to get all item IDs
         ArrayList<UserDto> users = new ArrayList<>();
 
@@ -27,11 +25,21 @@ public class UserModel {
         return users;
     }
 
-    public static boolean deleteItem(String userName) throws SQLException {
+    public  boolean delete(String userName) throws SQLException {
         return CrudUtil.execute("delete from user where user_name=?", userName);
     }
 
-    public static boolean saveUser(UserDto userDTO) throws SQLException {
+    @Override
+    public String getNextId() throws SQLException, ClassNotFoundException {
+        return "";
+    }
+
+    @Override
+    public UserDto search(String id) throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    public  boolean save(UserDto userDTO) throws SQLException {
         return CrudUtil.execute(
                 "insert into user values (?,?)",
                 userDTO.getUser_name(),
@@ -41,11 +49,16 @@ public class UserModel {
     }
 
 
-    public static boolean updateUser(UserDto userDTO) throws SQLException {
+    public  boolean update(UserDto userDTO) throws SQLException {
         return false;
     }
 
-    public static UserDto authenticateUser(String username, String password) {
+    @Override
+    public boolean exist(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    public  UserDto authenticateUser(String username, String password) {
         try {
             ResultSet resultSet = CrudUtil.execute("SELECT * FROM user WHERE user_name = ? AND password = ?", username, password);
             if (resultSet.next()) {

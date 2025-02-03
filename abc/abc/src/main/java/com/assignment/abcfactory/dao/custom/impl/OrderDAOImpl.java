@@ -1,9 +1,7 @@
 package com.assignment.abcfactory.dao.custom.impl;
 
 import com.assignment.abcfactory.dao.custom.OrderDAO;
-import com.assignment.abcfactory.dto.CustomerDto;
 import com.assignment.abcfactory.dto.OrderAndDetailDto;
-import com.assignment.abcfactory.dto.OrderDetailsDto;
 import com.assignment.abcfactory.dto.OrderDto;
 import com.assignment.abcfactory.util.CrudUtil;
 
@@ -13,7 +11,7 @@ import java.util.ArrayList;
 
 import static com.assignment.abcfactory.util.CrudUtil.execute;
 
-public class OrderModel implements OrderDAO {
+public class OrderDAOImpl implements OrderDAO {
 
 
     public String getNextId() throws SQLException {
@@ -126,5 +124,20 @@ public class OrderModel implements OrderDAO {
 //        }
 //        return null;
 //    }
+public OrderDto findByOrderId(String selectedOrderId) throws SQLException {
+    ResultSet rst = CrudUtil.execute("select * from orders where order_id=?", selectedOrderId);
+
+    if (rst.next()) {
+        return new OrderDto(
+                rst.getString(1),  // Customer ID
+                rst.getString(2),  // Name
+                rst.getString(3),  // NIC
+                rst.getInt(4),  // Email
+                rst.getDouble(5),
+                rst.getString(6)// Phone
+        );
+    }
+    return null;
+}
 
 }

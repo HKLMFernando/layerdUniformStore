@@ -1,9 +1,10 @@
 package com.assignment.abcfactory.controller;
 
+import com.assignment.abcfactory.dao.custom.impl.OrderDAOImpl;
 import com.assignment.abcfactory.dto.OrderDto;
 import com.assignment.abcfactory.dto.PaymentDto;
 import com.assignment.abcfactory.dto.tm.PaymentTm;
-import com.assignment.abcfactory.model.PaymentModel;
+import com.assignment.abcfactory.dao.custom.impl.PaymentDAOImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -104,7 +105,7 @@ public class PaymentController implements Initializable {
 
         PaymentDto paymentDTO = new PaymentDto(paymentId, payMethod, date, payment, orderId);
 
-        boolean isSaved = paymentModel.savePayment(paymentDTO);
+        boolean isSaved = paymentModel.save(paymentDTO);
         if (isSaved) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Payment saved...!").show();
@@ -122,7 +123,7 @@ public class PaymentController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.YES) {
-            boolean isDeleted = paymentModel.deletePayment(payID);
+            boolean isDeleted = paymentModel.delete(payID);
             if (isDeleted){
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Payment deleted...!").show();
@@ -153,7 +154,7 @@ public class PaymentController implements Initializable {
     }
 
 
-    PaymentModel paymentModel = new PaymentModel();
+    PaymentDAOImpl paymentModel = new PaymentDAOImpl();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -188,7 +189,7 @@ public class PaymentController implements Initializable {
     }
 
     private void loadTableData() throws SQLException {
-        ArrayList<PaymentDto> paymentDtos = paymentModel.getAllPayments();
+        ArrayList<PaymentDto> paymentDtos = paymentModel.getAll();
 
         ObservableList<PaymentTm> paymentTms = FXCollections.observableArrayList();
 
@@ -208,7 +209,7 @@ public class PaymentController implements Initializable {
     }
 
     private void loadNextPaymentId() throws SQLException {
-        String nextPaymentId = paymentModel.getNextPayId();
+        String nextPaymentId = paymentModel.getNextId();
         txtPaymentId.setText(nextPaymentId);
 
     }
@@ -230,19 +231,19 @@ public class PaymentController implements Initializable {
     }
 
     private void loadOrderId() throws SQLException {
-        ArrayList<String> orderIds = paymentModel.getAllOrderIds();
+        ArrayList<String> orderIds = orderModel.getAllOrderIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(orderIds);
         cmbOrderId.setItems(observableList);
     }
-
+    OrderDAOImpl orderModel = new OrderDAOImpl();
     @FXML
     void orderIdComboboxAction(ActionEvent event) throws SQLException {
 
         try {
             String selectedOrderId = cmbOrderId.getSelectionModel().getSelectedItem();
             if (selectedOrderId != null) {
-                OrderDto orderDto = paymentModel.findByOrderId(selectedOrderId);
+                OrderDto orderDto = orderModel.findByOrderId(selectedOrderId);
 
                 if (orderDto != null) {
                     lblDate.setText(orderDto.getOrder_date().toString());

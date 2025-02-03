@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import static com.assignment.abcfactory.util.CrudUtil.execute;
 
-public class ManuModelDAO implements ManuDAO {
+public class ManuDAOImpl implements ManuDAO {
 
 
 

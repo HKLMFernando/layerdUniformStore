@@ -2,7 +2,7 @@ package com.assignment.abcfactory.controller;
 
 import com.assignment.abcfactory.dto.UserDto;
 import com.assignment.abcfactory.dto.tm.UserTm;
-import com.assignment.abcfactory.model.UserModel;
+import com.assignment.abcfactory.dao.custom.impl.UserDAOImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -72,9 +72,10 @@ public class UserController {
         txtPassword.setText("");
 
     }
+    UserDAOImpl userModel = new UserDAOImpl();
 
     private void loadTableData()throws SQLException {
-        ArrayList<UserDto> userDTOS = UserModel.getAllItems();
+        ArrayList<UserDto> userDTOS = userModel.getAll();
         ObservableList<UserTm> userTMS = FXCollections.observableArrayList();
 
         for (UserDto userDTO : userDTOS) {
@@ -93,7 +94,7 @@ public class UserController {
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
-            boolean isDeleted = UserModel.deleteItem(UserName);
+            boolean isDeleted = userModel.delete(UserName);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Item deleted...!").show();
@@ -117,7 +118,7 @@ public class UserController {
 
         );
 
-        boolean isSaved = UserModel.saveUser(userDTO);
+        boolean isSaved = userModel.save(userDTO);
         if (isSaved) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "User saved...!").show();
@@ -172,7 +173,7 @@ public class UserController {
                 UserName,
                 Password
         );
-        boolean isUpdate = UserModel.updateUser(userDTO);
+        boolean isUpdate = userModel.update(userDTO);
         if (isUpdate) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "User Profile update...!").show();

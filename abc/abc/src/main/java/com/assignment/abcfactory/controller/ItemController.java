@@ -2,7 +2,7 @@ package com.assignment.abcfactory.controller;
 
 import com.assignment.abcfactory.dto.ItemDto;
 import com.assignment.abcfactory.dto.tm.ItemTm;
-import com.assignment.abcfactory.dao.custom.impl.ItemModelDAO;
+import com.assignment.abcfactory.dao.custom.impl.ItemDAOImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -118,7 +118,7 @@ public class ItemController implements Initializable {
         }
     }
 
-    ItemModelDAO itemModel = new ItemModelDAO();
+    ItemDAOImpl itemModel = new ItemDAOImpl();
 
     private void loadTableData() throws SQLException {
         ArrayList<ItemDto> itemDTOS = itemModel.getAll();

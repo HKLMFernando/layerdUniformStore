@@ -1,21 +1,19 @@
-package com.assignment.abcfactory.model;
+package com.assignment.abcfactory.dao.custom.impl;
 
-import com.assignment.abcfactory.db.DBConnection;
+import com.assignment.abcfactory.dao.custom.PaymentDAO;
 import com.assignment.abcfactory.dto.OrderDto;
 import com.assignment.abcfactory.dto.PaymentDto;
 import com.assignment.abcfactory.util.CrudUtil;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static com.assignment.abcfactory.util.CrudUtil.execute;
 
-public class PaymentModel {
+public class PaymentDAOImpl implements PaymentDAO {
 
-    public static String getNextPayId() throws SQLException {
+    public  String getNextId() throws SQLException {
         ResultSet rst = CrudUtil.execute("select payment_id from payments order by payment_id desc limit 1");
 
         if (rst.next()) {
@@ -28,8 +26,13 @@ public class PaymentModel {
         return "P001"; // Return the default customer ID if no data is found
     }
 
+    @Override
+    public PaymentDto search(String id) throws SQLException, ClassNotFoundException {
+        return null;
+    }
 
-    public static ArrayList<PaymentDto> getAllPayments() throws SQLException {
+
+    public  ArrayList<PaymentDto> getAll() throws SQLException {
         ResultSet rst = CrudUtil.execute("select payment_id, payment_methord,date,payment,order_id from payments");
         ArrayList<PaymentDto> paymentDtos = new ArrayList<>();
 
@@ -46,35 +49,35 @@ public class PaymentModel {
         }
         return paymentDtos;
     }
-    public OrderDto findByOrderId(String selectedOrderId) throws SQLException {
-        ResultSet rst = CrudUtil.execute("select * from orders where order_id=?", selectedOrderId);
+//    public OrderDto findByOrderId(String selectedOrderId) throws SQLException {
+//        ResultSet rst = CrudUtil.execute("select * from orders where order_id=?", selectedOrderId);
+//
+//        if (rst.next()) {
+//            return new OrderDto(
+//                    rst.getString(1),  // Customer ID
+//                    rst.getString(2),  // Name
+//                    rst.getString(3),  // NIC
+//                    rst.getInt(4),  // Email
+//                    rst.getDouble(5),
+//                    rst.getString(6)// Phone
+//            );
+//        }
+//        return null;
+//    }
 
-        if (rst.next()) {
-            return new OrderDto(
-                    rst.getString(1),  // Customer ID
-                    rst.getString(2),  // Name
-                    rst.getString(3),  // NIC
-                    rst.getInt(4),  // Email
-                    rst.getDouble(5),
-                    rst.getString(6)// Phone
-            );
-        }
-        return null;
-    }
+//    public ArrayList<String> getAllOrderIds() throws SQLException {
+//        ResultSet rst = execute("select order_id from orders");
+//
+//        ArrayList<String> orderId = new ArrayList<>();
+//
+//        while (rst.next()) {
+//            orderId.add(rst.getString(1));
+//        }
+//
+//        return orderId;
+//    }
 
-    public ArrayList<String> getAllOrderIds() throws SQLException {
-        ResultSet rst = execute("select order_id from orders");
-
-        ArrayList<String> orderId = new ArrayList<>();
-
-        while (rst.next()) {
-            orderId.add(rst.getString(1));
-        }
-
-        return orderId;
-    }
-
-    public boolean savePayment(PaymentDto paymentDTO) throws SQLException {
+    public boolean save(PaymentDto paymentDTO) throws SQLException {
         return CrudUtil.execute(
                 "insert into payments values (?,?,?,?,?)",
                 paymentDTO.getPayment_id(),
@@ -85,6 +88,17 @@ public class PaymentModel {
 
         );
     }
+
+    @Override
+    public boolean update(PaymentDto dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean exist(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
     public double getPaymont(String selectedPaymentId) throws SQLException {
 
         ResultSet rst = CrudUtil.execute("SELECT total FROM order_details WHERE order_id = ?", selectedPaymentId);
@@ -93,7 +107,7 @@ public class PaymentModel {
         }
         return 0;
     }
-    public boolean deletePayment(String payment_id) throws SQLException {
+    public boolean delete(String payment_id) throws SQLException {
         return CrudUtil.execute("delete from payments where payment_id = ?", payment_id);
     }
 
