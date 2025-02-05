@@ -1,6 +1,8 @@
 package com.assignment.abcfactory.dao.custom.impl;
 
 import com.assignment.abcfactory.dao.custom.ManuDAO;
+import com.assignment.abcfactory.entity.Manu;
+import com.assignment.abcfactory.entity.Order;
 import com.assignment.abcfactory.model.ManuDto;
 import com.assignment.abcfactory.model.OrderDto;
 import com.assignment.abcfactory.dao.CrudUtil;
@@ -30,17 +32,17 @@ public class ManuDAOImpl implements ManuDAO {
     }
 
     @Override
-    public ManuDto search(String id) throws SQLException, ClassNotFoundException {
+    public Manu search(String id) throws SQLException, ClassNotFoundException {
         return null;
     }
 
 
-    public  OrderDto findByOrderId(String selectedOrderId) throws SQLException {
+    public Order findByOrderId(String selectedOrderId) throws SQLException {
         ResultSet rst = CrudUtil.execute("select * from orders where order_id=?", selectedOrderId);
 
         if (rst.next()) {
-            return new OrderDto(
-                    rst.getString(1),  // Customer ID
+            return new Order(
+                    rst.getString(1),  // CustomerDto ID
                     rst.getString(2),  // Name
                     rst.getString(3),  // NIC
                     rst.getInt(4),  // Email
@@ -54,13 +56,13 @@ public class ManuDAOImpl implements ManuDAO {
 
 
 
-    public ArrayList<ManuDto> getAll() throws SQLException {
+    public ArrayList<Manu> getAll() throws SQLException {
         ResultSet rst = CrudUtil.execute("select manufacturing_id,prosses_details,order_id from manufacturing");
-        ArrayList<ManuDto> manuDtos = new ArrayList<>();
+        ArrayList<Manu> manuDtos = new ArrayList<>();
 
         while (rst.next()) {
-            ManuDto  manuDto = new ManuDto(
-                    rst.getString(1),  // Customer ID
+            Manu  manuDto = new Manu(
+                    rst.getString(1),  // CustomerDto ID
                     rst.getString(2),  // Name
                     rst.getString(3)
             );
@@ -91,7 +93,7 @@ public class ManuDAOImpl implements ManuDAO {
         return false;
     }
 
-    public boolean save(ManuDto manuDto) throws SQLException {
+    public boolean save(Manu manuDto) throws SQLException {
         return execute(
                 "insert into manufacturing values (?,?,?)",
                 manuDto.getManufacturing_id(),
@@ -105,7 +107,7 @@ public class ManuDAOImpl implements ManuDAO {
         return CrudUtil.execute("delete from manufacturing where manufacturing_id = ?", manuId);
     }
 
-    public boolean update(ManuDto manuDto) throws SQLException {
+    public boolean update(Manu manuDto) throws SQLException {
         return execute(
                 "update manufacturing set prosses_details=?, order_id=? where manufacturing_id=?",
                 manuDto.getProsses_details(),

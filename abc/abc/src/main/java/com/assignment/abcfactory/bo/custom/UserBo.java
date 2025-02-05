@@ -1,11 +1,12 @@
 package com.assignment.abcfactory.bo.custom;
 
+import com.assignment.abcfactory.bo.SuperBo;
 import com.assignment.abcfactory.model.UserDto;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface UserBo {
+public interface UserBo extends SuperBo {
     ArrayList<UserDto> getAll() throws SQLException;
     boolean delete(String userName) throws SQLException;
     String getNextId() throws SQLException, ClassNotFoundException ;

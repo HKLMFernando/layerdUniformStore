@@ -1,7 +1,9 @@
 package com.assignment.abcfactory.controller;
 
+import com.assignment.abcfactory.bo.BoFactory;
+import com.assignment.abcfactory.bo.custom.CustomerBO;
+import com.assignment.abcfactory.bo.custom.FeedBackBo;
 import com.assignment.abcfactory.bo.custom.impl.CustomerBoImpl;
-import com.assignment.abcfactory.bo.custom.impl.FeedBackBoImpl;
 import com.assignment.abcfactory.model.CustomerDto;
 import com.assignment.abcfactory.model.FeedBackDto;
 import com.assignment.abcfactory.view.tdm.FeedBackTm;
@@ -62,7 +64,9 @@ public class FeedBackController implements Initializable {
     @FXML
     private TextField txtSearchContact;
 
-    CustomerBoImpl customerBo = new CustomerBoImpl();
+    FeedBackBo feedBackBo =(FeedBackBo)BoFactory.getInstance().getBo(BoFactory.BOTYPE.FEEDBACK);
+    CustomerBO customerBo = (CustomerBO) BoFactory.getInstance().getBo(BoFactory.BOTYPE.CUSTOMER);
+
     @FXML
     void txtSearchContactOnAction(ActionEvent event) {
         String contact = txtSearchContact.getText();
@@ -74,7 +78,7 @@ public class FeedBackController implements Initializable {
                 lblCustomerName.setText(customerDto.getCust_name());
                 cmbCustomer.setValue(customerDto.getCust_id());
             } else {
-                lblCustomerName.setText("Customer not found.");
+                lblCustomerName.setText("CustomerDto not found.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -84,7 +88,7 @@ public class FeedBackController implements Initializable {
 
     @FXML
     private Label txtFeedbackId;
-    FeedBackModelDAOImpl feedBackModel = new FeedBackModelDAOImpl();
+//    FeedBackModelDAOImpl feedBackModel = new FeedBackModelDAOImpl();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colFeedbackId.setCellValueFactory(new PropertyValueFactory<>("feed_back_id"));
@@ -107,10 +111,10 @@ public class FeedBackController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.YES) {
-            boolean isDeleted = feedBackModel.delete(feedbackID);
+            boolean isDeleted = feedBackBo.delete(feedbackID);
             if (isDeleted){
                 refreshPage();
-                new Alert(Alert.AlertType.INFORMATION, "FeedBack  deleted...!").show();
+                new Alert(Alert.AlertType.INFORMATION, "FeedBackDto  deleted...!").show();
             }else{
                 new Alert(Alert.AlertType.ERROR, "Fail to delete Feedback...!").show();
             }
@@ -130,14 +134,13 @@ public class FeedBackController implements Initializable {
                 Feedback,
                 CustomerId
         );
-        FeedBackBoImpl feedBackBo = new FeedBackBoImpl();
-
+      //  FeedBackBoImpl feedBackBo = new FeedBackBoImpl();
         boolean isSaved = feedBackBo.save(feedbackDTO);
         if (isSaved) {
             refreshPage();
-            new Alert(Alert.AlertType.INFORMATION, "FeedBack saved...!").show();
+            new Alert(Alert.AlertType.INFORMATION, "FeedBackDto saved...!").show();
         } else {
-            new Alert(Alert.AlertType.ERROR, "Fail to save FeedBack...!").show();
+            new Alert(Alert.AlertType.ERROR, "Fail to save FeedBackDto...!").show();
         }
 
     }
@@ -176,7 +179,7 @@ public class FeedBackController implements Initializable {
     }
 
     private void loadTableData() throws SQLException {
-        ArrayList<FeedBackDto> feedBackDtos = feedBackModel.getAll();
+        ArrayList<FeedBackDto> feedBackDtos = feedBackBo.getAll();
 
         ObservableList<FeedBackTm> feedBackTms = FXCollections.observableArrayList();
 
@@ -194,7 +197,7 @@ public class FeedBackController implements Initializable {
     }
 
     private void loadNextFeedbackId() throws SQLException {
-        String nextID = feedBackModel.getNextId();
+        String nextID = feedBackBo.getNextId();
         txtFeedbackId.setText(nextID);
     }
 

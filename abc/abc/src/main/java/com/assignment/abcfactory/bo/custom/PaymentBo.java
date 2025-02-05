@@ -1,11 +1,12 @@
 package com.assignment.abcfactory.bo.custom;
 
+import com.assignment.abcfactory.bo.SuperBo;
 import com.assignment.abcfactory.model.PaymentDto;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface PaymentBO {
+public interface PaymentBo extends SuperBo {
     String getNextId() throws SQLException ;
     PaymentDto search(String id) throws SQLException, ClassNotFoundException ;
     ArrayList<PaymentDto> getAll() throws SQLException ;

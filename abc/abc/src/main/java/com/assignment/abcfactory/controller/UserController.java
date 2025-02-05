@@ -1,5 +1,8 @@
 package com.assignment.abcfactory.controller;
 
+import com.assignment.abcfactory.bo.BoFactory;
+import com.assignment.abcfactory.bo.custom.FeedBackBo;
+import com.assignment.abcfactory.bo.custom.UserBo;
 import com.assignment.abcfactory.bo.custom.impl.UserBoImpl;
 import com.assignment.abcfactory.model.UserDto;
 import com.assignment.abcfactory.view.tdm.UserTm;
@@ -48,6 +51,9 @@ public class UserController {
 
     @FXML
     private TextField txtUserName;
+
+    UserBo userBo = (UserBo) BoFactory.getInstance().getBo(BoFactory.BOTYPE.USER);
+
     @FXML
     public void initialize() {
         colname.setCellValueFactory(new PropertyValueFactory<>("user_name"));
@@ -72,7 +78,7 @@ public class UserController {
         txtPassword.setText("");
 
     }
-    UserBoImpl userBo = new UserBoImpl();
+
 
     private void loadTableData()throws SQLException {
         ArrayList<UserDto> userDTOS = userBo.getAll();
@@ -97,7 +103,7 @@ public class UserController {
             boolean isDeleted = userBo.delete(UserName);
             if (isDeleted) {
                 refreshPage();
-                new Alert(Alert.AlertType.INFORMATION, "Item deleted...!").show();
+                new Alert(Alert.AlertType.INFORMATION, "ItemDto deleted...!").show();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Fail to item customer...!").show();
             }

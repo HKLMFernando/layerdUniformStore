@@ -1,6 +1,7 @@
 package com.assignment.abcfactory.controller;
 
-import com.assignment.abcfactory.bo.custom.impl.CustomerBoImpl;
+import com.assignment.abcfactory.bo.BoFactory;
+import com.assignment.abcfactory.bo.custom.CustomerBO;
 import com.assignment.abcfactory.model.CustomerDto;
 import com.assignment.abcfactory.view.tdm.CustomerTm;
 import javafx.collections.FXCollections;
@@ -83,6 +84,7 @@ public class CustomerController implements Initializable {
     @FXML
     private Button btnsendMail;
 
+    CustomerBO customerBo= (CustomerBO) BoFactory.getInstance().getBo(BoFactory.BOTYPE.CUSTOMER);
 
     @FXML
     void mainlayout(ActionEvent event) {
@@ -118,7 +120,7 @@ public class CustomerController implements Initializable {
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
             if (customerBo.delete(customerId)) {
                 refreshPage();
-                new Alert(Alert.AlertType.INFORMATION, "Customer deleted!").show();
+                new Alert(Alert.AlertType.INFORMATION, "CustomerDto deleted!").show();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to delete customer!").show();
             }
@@ -171,7 +173,7 @@ public class CustomerController implements Initializable {
         boolean isSaved = customerBo.save(customerDTO);
         if (isSaved) {
             refreshPage();
-            new Alert(Alert.AlertType.INFORMATION, "Customer saved successfully!").show();
+            new Alert(Alert.AlertType.INFORMATION, "CustomerDto saved successfully!").show();
         } else {
             new Alert(Alert.AlertType.ERROR, "Failed to save customer.").show();
         }
@@ -223,7 +225,7 @@ public class CustomerController implements Initializable {
 
         if (customerBo.update(customerDTO)) {
             refreshPage();
-            new Alert(Alert.AlertType.INFORMATION, "Customer updated!").show();
+            new Alert(Alert.AlertType.INFORMATION, "CustomerDto updated!").show();
         } else {
             new Alert(Alert.AlertType.ERROR, "Failed to update customer!").show();
         }
@@ -291,8 +293,8 @@ public class CustomerController implements Initializable {
         String nextCustomerId = customerBo.getNextId();
         txtCustId.setText(nextCustomerId);
     }
-
-    CustomerBoImpl customerBo = new CustomerBoImpl();
+//      CustomerBO customerBo= (CustomerBO) BoFactory.getInstance().getBo(BoFactory.BOTYPE.CUSTOMER);
+//    CustomerBoImpl customerBo = new CustomerBoImpl();
 
     private void loadTableData() throws SQLException {
         ArrayList<CustomerDto> customerDTOS = customerBo.getAll();

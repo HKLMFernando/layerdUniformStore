@@ -1,11 +1,12 @@
 package com.assignment.abcfactory.bo.custom;
 
+import com.assignment.abcfactory.bo.SuperBo;
 import com.assignment.abcfactory.model.ItemDto;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface ItemBO {
+public interface ItemBO extends SuperBo {
     boolean save(ItemDto itemDto) throws SQLException;
     boolean exist(String id) throws SQLException, ClassNotFoundException ;
     String getNextId() throws SQLException, ClassNotFoundException ;

@@ -1,5 +1,8 @@
 package com.assignment.abcfactory.controller;
 
+import com.assignment.abcfactory.bo.BoFactory;
+import com.assignment.abcfactory.bo.custom.FeedBackBo;
+import com.assignment.abcfactory.bo.custom.UserBo;
 import com.assignment.abcfactory.bo.custom.impl.UserBoImpl;
 import com.assignment.abcfactory.model.UserDto;
 import javafx.event.ActionEvent;
@@ -24,7 +27,7 @@ public class LogLayoutController {
     @FXML
     private TextField txtUsername;
 
-    UserBoImpl userBo = new UserBoImpl();
+    UserBo userBo = (UserBo) BoFactory.getInstance().getBo(BoFactory.BOTYPE.USER);
     @FXML
     public void btnLogInAction(ActionEvent actionEvent) throws IOException {
         String username = txtUsername.getText();

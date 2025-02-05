@@ -1,6 +1,7 @@
 package com.assignment.abcfactory.dao.custom.impl;
 
 import com.assignment.abcfactory.dao.custom.PaymentDAO;
+import com.assignment.abcfactory.entity.Payment;
 import com.assignment.abcfactory.model.PaymentDto;
 import com.assignment.abcfactory.dao.CrudUtil;
 
@@ -24,18 +25,18 @@ public class PaymentDAOImpl implements PaymentDAO {
     }
 
     @Override
-    public PaymentDto search(String id) throws SQLException, ClassNotFoundException {
+    public Payment search(String id) throws SQLException, ClassNotFoundException {
         return null;
     }
 
 
-    public  ArrayList<PaymentDto> getAll() throws SQLException {
+    public  ArrayList<Payment> getAll() throws SQLException {
         ResultSet rst = CrudUtil.execute("select payment_id, payment_methord,date,payment,order_id from payments");
-        ArrayList<PaymentDto> paymentDtos = new ArrayList<>();
+        ArrayList<Payment> paymentDtos = new ArrayList<>();
 
         while (rst.next()) {
-            PaymentDto paymentDto = new PaymentDto(
-                    rst.getString(1),  // Customer ID
+            Payment paymentDto = new Payment(
+                    rst.getString(1),  // CustomerDto ID
                     rst.getString(2),  // Name
                     rst.getString(3),//adress
                     rst.getDouble(4),
@@ -46,12 +47,12 @@ public class PaymentDAOImpl implements PaymentDAO {
         }
         return paymentDtos;
     }
-//    public OrderDto findByOrderId(String selectedOrderId) throws SQLException {
+//    public Order findByOrderId(String selectedOrderId) throws SQLException {
 //        ResultSet rst = CrudUtil.execute("select * from orders where order_id=?", selectedOrderId);
 //
 //        if (rst.next()) {
-//            return new OrderDto(
-//                    rst.getString(1),  // Customer ID
+//            return new Order(
+//                    rst.getString(1),  // CustomerDto ID
 //                    rst.getString(2),  // Name
 //                    rst.getString(3),  // NIC
 //                    rst.getInt(4),  // Email
@@ -74,7 +75,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 //        return orderId;
 //    }
 
-    public boolean save(PaymentDto paymentDTO) throws SQLException {
+    public boolean save(Payment paymentDTO) throws SQLException {
         return CrudUtil.execute(
                 "insert into payments values (?,?,?,?,?)",
                 paymentDTO.getPayment_id(),
@@ -87,7 +88,7 @@ public class PaymentDAOImpl implements PaymentDAO {
     }
 
     @Override
-    public boolean update(PaymentDto dto) throws SQLException, ClassNotFoundException {
+    public boolean update(Payment dto) throws SQLException, ClassNotFoundException {
         return false;
     }
 

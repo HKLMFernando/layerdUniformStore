@@ -1,7 +1,9 @@
 package com.assignment.abcfactory.controller;
 
+import com.assignment.abcfactory.bo.BoFactory;
+import com.assignment.abcfactory.bo.custom.OrderBo;
+import com.assignment.abcfactory.bo.custom.PaymentBo;
 import com.assignment.abcfactory.bo.custom.impl.OrderBoImpl;
-import com.assignment.abcfactory.bo.custom.impl.PaymentBoImpl;
 import com.assignment.abcfactory.model.OrderDto;
 import com.assignment.abcfactory.model.PaymentDto;
 import com.assignment.abcfactory.view.tdm.PaymentTm;
@@ -77,6 +79,9 @@ public class PaymentController implements Initializable {
 
     @FXML
     private Label txtPaymentId;
+
+    OrderBo orderBo = (OrderBo) BoFactory.getInstance().getBo(BoFactory.BOTYPE.ORDER);
+    PaymentBo paymentBo = (PaymentBo) BoFactory.getInstance().getBo(BoFactory.BOTYPE.PAYMENT);
     @FXML
     void addPayment(ActionEvent event) throws SQLException {
         String paymentId = txtPaymentId.getText().trim();
@@ -154,7 +159,7 @@ public class PaymentController implements Initializable {
     }
 
 
-    PaymentBoImpl paymentBo = new PaymentBoImpl();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -236,7 +241,7 @@ public class PaymentController implements Initializable {
         observableList.addAll(orderIds);
         cmbOrderId.setItems(observableList);
     }
-    OrderBoImpl orderBo = new OrderBoImpl();
+
     @FXML
     void orderIdComboboxAction(ActionEvent event) throws SQLException {
 

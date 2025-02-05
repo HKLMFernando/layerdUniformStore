@@ -12,7 +12,7 @@ public class AppInitializer extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/loglayout.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/mainlayout.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("The Uniform Store");
         Image image = new Image(getClass().getResourceAsStream("/image/UniformStore.jpg"));

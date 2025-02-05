@@ -1,12 +1,13 @@
 package com.assignment.abcfactory.bo.custom;
 
+import com.assignment.abcfactory.bo.SuperBo;
 import com.assignment.abcfactory.model.OrderAndDetailDto;
 import com.assignment.abcfactory.model.OrderDto;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface OrderBo {
+public interface OrderBo  extends SuperBo {
     String getNextId() throws SQLException, ClassNotFoundException;
     OrderDto search(String id) throws SQLException, ClassNotFoundException ;
     ArrayList<OrderDto> getAll() throws SQLException, ClassNotFoundException ;

@@ -1,6 +1,7 @@
 package com.assignment.abcfactory.dao.custom.impl;
 
 import com.assignment.abcfactory.dao.custom.FeedBackDAO;
+import com.assignment.abcfactory.entity.FeedBack;
 import com.assignment.abcfactory.model.FeedBackDto;
 import com.assignment.abcfactory.dao.CrudUtil;
 
@@ -9,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class FeedBackModelDAOImpl implements FeedBackDAO {
-    public boolean save(FeedBackDto feedbackDTO) throws SQLException {
+    public boolean save(FeedBack feedbackDTO) throws SQLException {
         return CrudUtil.execute(
                 "insert into feed_back values (?,?,?)",
                 feedbackDTO.getFeed_back_Id(),
@@ -20,7 +21,7 @@ public class FeedBackModelDAOImpl implements FeedBackDAO {
     }
 
     @Override
-    public boolean update(FeedBackDto dto) throws SQLException, ClassNotFoundException {
+    public boolean update(FeedBack dto) throws SQLException, ClassNotFoundException {
         return false;
     }
 
@@ -29,9 +30,9 @@ public class FeedBackModelDAOImpl implements FeedBackDAO {
         return false;
     }
 
-    public ArrayList<FeedBackDto> getAll() throws SQLException {
+    public ArrayList<com.assignment.abcfactory.entity.FeedBack> getAll() throws SQLException {
         // Execute SQL query to get all item IDs
-        ArrayList<FeedBackDto> feedbacks = new ArrayList<>();
+        ArrayList<FeedBack> feedbacks = new ArrayList<>();
 
         // Database query to get all items
         ResultSet resultSet = CrudUtil.execute("SELECT feed_back_id,feed_back,cust_id FROM feed_back");
@@ -41,7 +42,7 @@ public class FeedBackModelDAOImpl implements FeedBackDAO {
             String FeedBack = resultSet.getString("feed_back");
             String CustId = resultSet.getString("cust_id");
 
-            feedbacks.add(new FeedBackDto( FeedBackId,FeedBack,CustId));
+            feedbacks.add(new FeedBack( FeedBackId,FeedBack,CustId));
         }
         return feedbacks;
 
@@ -62,7 +63,7 @@ public class FeedBackModelDAOImpl implements FeedBackDAO {
     }
 
     @Override
-    public FeedBackDto search(String id) throws SQLException, ClassNotFoundException {
+    public FeedBack search(String id) throws SQLException, ClassNotFoundException {
         return null;
     }
 

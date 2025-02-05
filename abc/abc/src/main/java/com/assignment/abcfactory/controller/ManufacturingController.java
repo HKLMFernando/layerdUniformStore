@@ -1,6 +1,12 @@
 package com.assignment.abcfactory.controller;
 
+import com.assignment.abcfactory.bo.BoFactory;
+import com.assignment.abcfactory.bo.custom.FeedBackBo;
+import com.assignment.abcfactory.bo.custom.ItemBO;
+import com.assignment.abcfactory.bo.custom.ManuBo;
+import com.assignment.abcfactory.bo.custom.OrderBo;
 import com.assignment.abcfactory.bo.custom.impl.ManuBoImpl;
+import com.assignment.abcfactory.dao.DAOFactory;
 import com.assignment.abcfactory.model.ManuDto;
 import com.assignment.abcfactory.view.tdm.ManuTm;
 import com.assignment.abcfactory.dao.custom.impl.OrderDAOImpl;
@@ -64,7 +70,8 @@ public class ManufacturingController implements Initializable {
     void cmbOrderonAction(ActionEvent event) {
 
     }
-
+    ManuBo manuBo= (ManuBo) BoFactory.getInstance().getBo(BoFactory.BOTYPE.MANU);
+    OrderBo orderBo= (OrderBo) BoFactory.getInstance().getBo(BoFactory.BOTYPE.ORDER);
     @FXML
     void deleteonAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String manuId = txtmanuId.getText();
@@ -155,7 +162,7 @@ public class ManufacturingController implements Initializable {
         }
 
     }
-    ManuBoImpl manuBo = new ManuBoImpl();
+//    ManuBoImpl manuBo = (ManuBoImpl) BoFactory.getInstance().getBo(BoFactory.BOTYPE.MANU);
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colmanuId.setCellValueFactory(new PropertyValueFactory<>("manufacturing_id"));
@@ -178,6 +185,7 @@ public class ManufacturingController implements Initializable {
     }
 
     private void refreshPage() throws SQLException, ClassNotFoundException {
+
         loadNextManuId();
         loadOrderId();
 
@@ -190,9 +198,9 @@ public class ManufacturingController implements Initializable {
         loadTableData();
     }
 
-    private void loadTableData() throws SQLException {
-        ArrayList<ManuDto> manuDtos = manuBo.getAll();
+    private void loadTableData() throws SQLException, ClassNotFoundException {
 
+        ArrayList<ManuDto> manuDtos = manuBo.getAll();
         ObservableList<ManuTm> manuTms = FXCollections.observableArrayList();
 
         for (ManuDto manuDto : manuDtos) {
@@ -206,15 +214,14 @@ public class ManufacturingController implements Initializable {
         }
         tblManu.setItems(manuTms);
     }
-    OrderDAOImpl orderModel = new OrderDAOImpl();
+//    OrderDAOImpl orderModel = (OrderDAOImpl) BoFactory.getInstance().getBo(BoFactory.BOTYPE.ORDER);
     private void loadOrderId() throws SQLException {
-        ArrayList<String> orderIds = orderModel.getAllOrderIds();
+        ArrayList<String> orderIds = orderBo.getAllOrderIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(orderIds);
         cmbOrderId.setItems(observableList);
 
     }
-
     private void loadNextManuId() throws SQLException, ClassNotFoundException {
         String nextmanuId = manuBo.getNextId();
         txtmanuId.setText(nextmanuId);

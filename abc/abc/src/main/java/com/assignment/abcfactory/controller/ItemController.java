@@ -1,5 +1,7 @@
 package com.assignment.abcfactory.controller;
 
+import com.assignment.abcfactory.bo.BoFactory;
+import com.assignment.abcfactory.bo.custom.ItemBO;
 import com.assignment.abcfactory.bo.custom.impl.ItemBoImpl;
 import com.assignment.abcfactory.model.ItemDto;
 import com.assignment.abcfactory.view.tdm.ItemTm;
@@ -54,6 +56,8 @@ public class ItemController implements Initializable {
 
     @FXML
     private TextField txtItemName;
+
+    ItemBO itemBo = (ItemBO) BoFactory.getInstance().getBo(BoFactory.BOTYPE.ITEM);
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colItemId.setCellValueFactory(new PropertyValueFactory<>("itemId"));
@@ -118,7 +122,7 @@ public class ItemController implements Initializable {
         }
     }
 
-    ItemBoImpl itemBo = new ItemBoImpl();
+
 
     private void loadTableData() throws SQLException {
         ArrayList<ItemDto> itemDTOS = itemBo.getAll();
@@ -144,7 +148,7 @@ public class ItemController implements Initializable {
             boolean isDeleted = itemBo.delete(itemId);
             if (isDeleted) {
                 refreshPage();
-                new Alert(Alert.AlertType.INFORMATION, "Item deleted...!").show();
+                new Alert(Alert.AlertType.INFORMATION, "ItemDto deleted...!").show();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Fail to item customer...!").show();
             }
@@ -165,9 +169,9 @@ public class ItemController implements Initializable {
         boolean isSaved = itemBo.save(itemDTO);
         if (isSaved) {
             refreshPage();
-            new Alert(Alert.AlertType.INFORMATION, "Item saved...!").show();
+            new Alert(Alert.AlertType.INFORMATION, "ItemDto saved...!").show();
         } else {
-            new Alert(Alert.AlertType.ERROR, "Fail to save Item...!").show();
+            new Alert(Alert.AlertType.ERROR, "Fail to save ItemDto...!").show();
         }
     }
 
@@ -182,9 +186,9 @@ public class ItemController implements Initializable {
         boolean isUpdate = itemBo.update(itemDTO);
         if (isUpdate) {
             refreshPage();
-            new Alert(Alert.AlertType.INFORMATION, "Item update...!").show();
+            new Alert(Alert.AlertType.INFORMATION, "ItemDto update...!").show();
         } else {
-            new Alert(Alert.AlertType.ERROR, "Fail to update Item...!").show();
+            new Alert(Alert.AlertType.ERROR, "Fail to update ItemDto...!").show();
         }
 
     }

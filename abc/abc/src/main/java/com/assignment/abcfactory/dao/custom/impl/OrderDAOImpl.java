@@ -1,6 +1,7 @@
 package com.assignment.abcfactory.dao.custom.impl;
 
 import com.assignment.abcfactory.dao.custom.OrderDAO;
+import com.assignment.abcfactory.entity.Order;
 import com.assignment.abcfactory.model.OrderAndDetailDto;
 import com.assignment.abcfactory.model.OrderDto;
 import com.assignment.abcfactory.dao.CrudUtil;
@@ -28,16 +29,16 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public OrderDto search(String id) throws SQLException, ClassNotFoundException {
+    public Order search(String id) throws SQLException, ClassNotFoundException {
         return null;
     }
 
     @Override
-    public ArrayList<OrderDto> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<Order> getAll() throws SQLException, ClassNotFoundException {
         return null;
     }
 
-    public  boolean save(OrderDto orderDto) throws SQLException {
+    public  boolean save(Order orderDto) throws SQLException {
         return execute(
                 "insert into orders values (?,?,?,?,?,?)",
                 orderDto.getOrder_id(),
@@ -57,7 +58,7 @@ public class OrderDAOImpl implements OrderDAO {
 
         while (rst.next()) {
             OrderAndDetailDto orderAndDetailDto = new OrderAndDetailDto(
-                    rst.getString(1),  // Customer ID
+                    rst.getString(1),  // CustomerDto ID
                     rst.getString(2),  // Name
                     rst.getString(3),//adress
                     rst.getString(4),   // Phone
@@ -72,7 +73,7 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
 
-    public boolean update(OrderDto orderDto) throws SQLException {
+    public boolean update(Order orderDto) throws SQLException {
         return execute(
                 "update orders set order_date=?, due_date=?, qty=?, price_per_unit=?,cust_id=? where order_id=?",
                 orderDto.getOrder_date(),
@@ -114,7 +115,7 @@ public class OrderDAOImpl implements OrderDAO {
 //
 //        if (rst.next()) {
 //            return new CustomerDto(
-//                    rst.getString("cust_id"),    // Customer ID
+//                    rst.getString("cust_id"),    // CustomerDto ID
 //                    rst.getString("cust_name"),  // Name
 //                    rst.getString("adress"),     // Address
 //                    rst.getString("contacts"),    // Contact
@@ -129,7 +130,7 @@ public OrderDto findByOrderId(String selectedOrderId) throws SQLException {
 
     if (rst.next()) {
         return new OrderDto(
-                rst.getString(1),  // Customer ID
+                rst.getString(1),  // CustomerDto ID
                 rst.getString(2),  // Name
                 rst.getString(3),  // NIC
                 rst.getInt(4),  // Email

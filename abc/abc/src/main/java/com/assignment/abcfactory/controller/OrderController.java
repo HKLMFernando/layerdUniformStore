@@ -1,5 +1,10 @@
 package com.assignment.abcfactory.controller;
 
+import com.assignment.abcfactory.bo.BoFactory;
+import com.assignment.abcfactory.bo.custom.CustomerBO;
+import com.assignment.abcfactory.bo.custom.ItemBO;
+import com.assignment.abcfactory.bo.custom.OrderBo;
+import com.assignment.abcfactory.bo.custom.OrderDetailsBo;
 import com.assignment.abcfactory.bo.custom.impl.OrderBoImpl;
 import com.assignment.abcfactory.bo.custom.impl.OrderDetailsBoImpl;
 import com.assignment.abcfactory.db.DBConnection;
@@ -125,6 +130,12 @@ public class OrderController implements Initializable {
 
 
     }
+
+    OrderBo orderBo = (OrderBo) BoFactory.getInstance().getBo(BoFactory.BOTYPE.ORDER);
+    CustomerBO customerBO= (CustomerBO) BoFactory.getInstance().getBo(BoFactory.BOTYPE.CUSTOMER);
+    ItemBO itemBO = (ItemBO) BoFactory.getInstance().getBo(BoFactory.BOTYPE.ITEM);
+    OrderDetailsBo orderDetailsBo = (OrderDetailsBo) BoFactory.getInstance().getBo(BoFactory.BOTYPE.ORDERDETAILS);
+
     @FXML
     void updateonAction(ActionEvent event) throws Exception {
         String orderId = txtOrderID.getText().trim();
@@ -191,7 +202,7 @@ public class OrderController implements Initializable {
 
     }
 
-    OrderDetailsBoImpl orderDetailsBo = new OrderDetailsBoImpl();
+
 
     @FXML
     void addTable(ActionEvent event) throws Exception {
@@ -245,7 +256,7 @@ public class OrderController implements Initializable {
     @FXML
     void cmbCustomerOnAction(ActionEvent event) throws SQLException {
         String selectedCustomerId = cmbCustomerId.getSelectionModel().getSelectedItem();
-        CustomerDto customerDTO = customerDAO.findById(selectedCustomerId);
+        CustomerDto customerDTO = customerBO.findById(selectedCustomerId);
 
         if (selectedCustomerId != null) {
             if (customerDTO != null) {
@@ -315,7 +326,7 @@ public class OrderController implements Initializable {
 
     }
 
-    OrderBoImpl orderBo = new OrderBoImpl();
+
 
     public void loadNextOrderId() throws SQLException, ClassNotFoundException {
         String nextOrderId = orderBo.getNextId();
@@ -360,28 +371,27 @@ public class OrderController implements Initializable {
         }
     }
 
-    CustomerDAOImpl customerDAO = new CustomerDAOImpl();
     public void txtSearchContactOnAction(ActionEvent event) {
         String contact = txtSearchContact.getText();
         try {
-            CustomerDto customerDto = customerDAO.findByCusId(contact);
+            CustomerDto customerDto = customerBO.findByCusId(contact);
 
 
             if (customerDto != null) {
                 lblCustomerName.setText(customerDto.getCust_name());
                 cmbCustomerId.setValue(customerDto.getCust_id());
             } else {
-                lblCustomerName.setText("Customer not found.");
+                lblCustomerName.setText("CustomerDto not found.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-ItemDAOImpl itemModelDAO = new ItemDAOImpl();
+//ItemDAOImpl itemModelDAO = new ItemDAOImpl();
     @FXML
     void cmbItemOnAction(ActionEvent event) throws SQLException {
         String selectedItemId = cmbItemID.getSelectionModel().getSelectedItem();
-        ItemDto itemDTO = itemModelDAO.findById(selectedItemId);
+        ItemDto itemDTO = itemBO.findById(selectedItemId);
 
         // If item found (itemDTO not null)
         if (itemDTO != null) {
@@ -394,7 +404,7 @@ ItemDAOImpl itemModelDAO = new ItemDAOImpl();
     }
 
     private void loadItemId() throws SQLException {
-        ArrayList<String> itemIds = itemModelDAO.getAllIds();
+        ArrayList<String> itemIds = itemBO.getAllIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(itemIds);
         cmbItemID.setItems(observableList);

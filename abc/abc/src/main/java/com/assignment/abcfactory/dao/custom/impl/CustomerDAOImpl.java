@@ -3,7 +3,7 @@ package com.assignment.abcfactory.dao.custom.impl;
 
 import com.assignment.abcfactory.dao.custom.CustomerDAO;
 import com.assignment.abcfactory.dao.CrudUtil;
-import com.assignment.abcfactory.model.CustomerDto;
+import com.assignment.abcfactory.entity.Customer;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,11 +28,11 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public CustomerDto search(String id) throws SQLException, ClassNotFoundException {
+    public Customer search(String id) throws SQLException, ClassNotFoundException {
         return null;
     }
 
-    public boolean save(CustomerDto customerDto) throws SQLException {
+    public boolean save(Customer customerDto) throws SQLException {
         return execute(
                 "insert into customer values (?,?,?,?,?,?)",
                 customerDto.getCust_id(),
@@ -45,14 +45,14 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
 
-    public ArrayList<CustomerDto> getAll() throws SQLException {
+    public ArrayList<Customer> getAll() throws SQLException {
         ResultSet rst = CrudUtil.execute("select * from customer");
 
-        ArrayList<CustomerDto> customerDTOS = new ArrayList<>();
+        ArrayList<Customer> customerDTOS = new ArrayList<>();
 
         while (rst.next()) {
-            CustomerDto customerDTO = new CustomerDto(
-                    rst.getString(1),  // Customer ID
+            Customer customerDTO = new Customer(
+                    rst.getString(1),  // CustomerDto ID
                     rst.getString(2),  // Name
                     rst.getString(3),//adress
                     rst.getString(4),   // Phone
@@ -65,7 +65,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
 
-    public boolean update(CustomerDto customerDTO) throws SQLException {
+    public boolean update(Customer customerDTO) throws SQLException {
         return execute(
                 "update customer set cust_name=?, adress=?, contacts=?, Nic=?, eMail=? where cust_id=?",
                 customerDTO.getCust_name(),
@@ -101,12 +101,12 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
 
-    public CustomerDto findById(String selectedCusId) throws SQLException {
+    public Customer findById(String selectedCusId) throws SQLException {
         ResultSet rst = CrudUtil.execute("select * from customer where cust_id=?", selectedCusId);
 
         if (rst.next()) {
-            return new CustomerDto(
-                    rst.getString(1),  // Customer ID
+            return new Customer(
+                    rst.getString(1),  // CustomerDto ID
                     rst.getString(2),  // Name
                     rst.getString(3),  // NIC
                     rst.getString(4),//adress
@@ -116,12 +116,12 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
         return null;
     }
-    public CustomerDto findByCusId(String contact) throws SQLException {
+    public Customer findByCusId(String contact) throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT * FROM customer WHERE contacts = ?", contact);
 
         if (rst.next()) {
-            return new CustomerDto(
-                    rst.getString("cust_id"),    // Customer ID
+            return new Customer(
+                    rst.getString("cust_id"),    // CustomerDto ID
                     rst.getString("cust_name"),  // Name
                     rst.getString("adress"),     // Address
                     rst.getString("contacts"),    // Contact

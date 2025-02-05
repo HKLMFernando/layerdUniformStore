@@ -1,6 +1,7 @@
 package com.assignment.abcfactory.dao.custom.impl;
 
 import com.assignment.abcfactory.dao.custom.ItemDAO;
+import com.assignment.abcfactory.entity.Item;
 import com.assignment.abcfactory.model.ItemDto;
 import com.assignment.abcfactory.dao.CrudUtil;
 
@@ -12,7 +13,7 @@ public class ItemDAOImpl implements ItemDAO {
     
 
 
-    public  boolean save(ItemDto itemDto) throws SQLException {
+    public  boolean save(Item itemDto) throws SQLException {
         return CrudUtil.execute(
                 "insert into item values (?,?)",
                 itemDto.getItem_id(),
@@ -34,17 +35,17 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
-    public ItemDto search(String id) throws SQLException, ClassNotFoundException {
+    public Item search(String id) throws SQLException, ClassNotFoundException {
         return null;
     }
 
-    public ItemDto findById(String selectedItemId) throws SQLException {
+    public Item findById(String selectedItemId) throws SQLException {
         // Execute SQL query to find the item by ID
         ResultSet rst = CrudUtil.execute("select * from item where item_id=?", selectedItemId);
 
         // If the item is found, create an ItemDTO object with the retrieved data
         if (rst.next()) {
-            return new ItemDto(
+            return new Item(
                     rst.getString("item_id"),
                     rst.getString("item_name"));
 
@@ -65,7 +66,7 @@ public class ItemDAOImpl implements ItemDAO {
 
         return itemIds;
     }
-    public  boolean update(ItemDto itemDto) throws SQLException {
+    public  boolean update(Item itemDto) throws SQLException {
         return CrudUtil.execute(
                 "update item set item_name=? where item_id=?",
                 itemDto.getItem_name(),
@@ -78,9 +79,9 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
 
-    public ArrayList<ItemDto> getAll() throws SQLException {
+    public ArrayList<Item> getAll() throws SQLException {
         // Execute SQL query to get all item IDs
-            ArrayList<ItemDto> items = new ArrayList<>();
+            ArrayList<Item> items = new ArrayList<>();
 
             // Database query to get all items
             ResultSet resultSet = CrudUtil.execute("SELECT item_id, item_name FROM item");
@@ -88,7 +89,7 @@ public class ItemDAOImpl implements ItemDAO {
             while (resultSet.next()) {
                 String itemId = resultSet.getString("item_id");
                 String itemName = resultSet.getString("item_name");
-                items.add(new ItemDto(itemId, itemName));
+                items.add(new Item(itemId, itemName));
             }
             return items;
     }
