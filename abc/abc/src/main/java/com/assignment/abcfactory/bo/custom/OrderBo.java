@@ -1,14 +1,10 @@
-package com.assignment.abcfactory.bo;
+package com.assignment.abcfactory.bo.custom;
 
-import com.assignment.abcfactory.dao.CrudUtil;
 import com.assignment.abcfactory.model.OrderAndDetailDto;
 import com.assignment.abcfactory.model.OrderDto;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import static com.assignment.abcfactory.dao.CrudUtil.execute;
 
 public interface OrderBo {
     String getNextId() throws SQLException, ClassNotFoundException;

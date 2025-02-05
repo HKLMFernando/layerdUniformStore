@@ -1,7 +1,7 @@
 package com.assignment.abcfactory.controller;
 
-import com.assignment.abcfactory.bo.OrderBoImpl;
-import com.assignment.abcfactory.bo.OrderDetailsBoImpl;
+import com.assignment.abcfactory.bo.custom.impl.OrderBoImpl;
+import com.assignment.abcfactory.bo.custom.impl.OrderDetailsBoImpl;
 import com.assignment.abcfactory.db.DBConnection;
 import com.assignment.abcfactory.view.tdm.OrderTm;
 import com.assignment.abcfactory.dao.custom.impl.CustomerDAOImpl;

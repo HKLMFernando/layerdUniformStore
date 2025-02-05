@@ -1,7 +1,7 @@
 package com.assignment.abcfactory.controller;
 
-import com.assignment.abcfactory.bo.OrderBoImpl;
-import com.assignment.abcfactory.bo.PaymentBoImpl;
+import com.assignment.abcfactory.bo.custom.impl.OrderBoImpl;
+import com.assignment.abcfactory.bo.custom.impl.PaymentBoImpl;
 import com.assignment.abcfactory.model.OrderDto;
 import com.assignment.abcfactory.model.PaymentDto;
 import com.assignment.abcfactory.view.tdm.PaymentTm;

@@ -1,8 +1,8 @@
 package com.assignment.abcfactory.controller;
 
+import com.assignment.abcfactory.bo.custom.impl.ManuBoImpl;
 import com.assignment.abcfactory.model.ManuDto;
 import com.assignment.abcfactory.view.tdm.ManuTm;
-import com.assignment.abcfactory.dao.custom.impl.ManuDAOImpl;
 import com.assignment.abcfactory.dao.custom.impl.OrderDAOImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -72,7 +72,7 @@ public class ManufacturingController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.YES) {
-            boolean isDeleted = manuModel.delete(manuId);
+            boolean isDeleted = manuBo.delete(manuId);
             if (isDeleted){
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "prosses deleted...!").show();
@@ -97,7 +97,7 @@ public class ManufacturingController implements Initializable {
 
 
         // Validate Order ID
-        if (manuModel.isOrderalredyAdded(orderId)) {
+        if (manuBo.isOrderalredyAdded(orderId)) {
             new Alert(Alert.AlertType.ERROR, "Manufacturing is already recorded for Order ID: " + orderId).show();
             return;
         }
@@ -107,7 +107,7 @@ public class ManufacturingController implements Initializable {
                 orderId,
                 prosses
         );
-        boolean isSaved = manuModel.save(manuDto);
+        boolean isSaved = manuBo.save(manuDto);
         if (isSaved) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "prosses saved...!").show();
@@ -146,7 +146,7 @@ public class ManufacturingController implements Initializable {
                 prosses,
                 orderId
         );
-        boolean isSaved = manuModel.update(manuDto);
+        boolean isSaved = manuBo.update(manuDto);
         if (isSaved) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "prosses saved...!").show();
@@ -155,7 +155,7 @@ public class ManufacturingController implements Initializable {
         }
 
     }
-    ManuDAOImpl manuModel = new ManuDAOImpl();
+    ManuBoImpl manuBo = new ManuBoImpl();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colmanuId.setCellValueFactory(new PropertyValueFactory<>("manufacturing_id"));
@@ -191,7 +191,7 @@ public class ManufacturingController implements Initializable {
     }
 
     private void loadTableData() throws SQLException {
-        ArrayList<ManuDto> manuDtos = manuModel.getAll();
+        ArrayList<ManuDto> manuDtos = manuBo.getAll();
 
         ObservableList<ManuTm> manuTms = FXCollections.observableArrayList();
 
@@ -216,7 +216,7 @@ public class ManufacturingController implements Initializable {
     }
 
     private void loadNextManuId() throws SQLException, ClassNotFoundException {
-        String nextmanuId = manuModel.getNextId();
+        String nextmanuId = manuBo.getNextId();
         txtmanuId.setText(nextmanuId);
     }
     private void navigateTo(String fxmlPath) {

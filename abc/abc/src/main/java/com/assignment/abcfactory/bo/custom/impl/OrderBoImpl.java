@@ -1,16 +1,13 @@
-package com.assignment.abcfactory.bo;
+package com.assignment.abcfactory.bo.custom.impl;
 
-import com.assignment.abcfactory.dao.CrudUtil;
+import com.assignment.abcfactory.bo.custom.OrderBo;
 import com.assignment.abcfactory.dao.custom.OrderDAO;
 import com.assignment.abcfactory.dao.custom.impl.OrderDAOImpl;
 import com.assignment.abcfactory.model.OrderAndDetailDto;
 import com.assignment.abcfactory.model.OrderDto;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import static com.assignment.abcfactory.dao.CrudUtil.execute;
 
 public class OrderBoImpl implements OrderBo {
     OrderDAO orderDAO = new OrderDAOImpl();

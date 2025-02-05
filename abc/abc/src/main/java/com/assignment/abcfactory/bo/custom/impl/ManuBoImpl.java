@@ -1,15 +1,12 @@
-package com.assignment.abcfactory.bo;
+package com.assignment.abcfactory.bo.custom.impl;
 
-import com.assignment.abcfactory.dao.CrudUtil;
+import com.assignment.abcfactory.bo.custom.ManuBo;
 import com.assignment.abcfactory.dao.custom.impl.ManuDAOImpl;
 import com.assignment.abcfactory.model.ManuDto;
 import com.assignment.abcfactory.model.OrderDto;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import static com.assignment.abcfactory.dao.CrudUtil.execute;
 
 public class ManuBoImpl implements ManuBo {
     ManuDAOImpl manuDAO = new ManuDAOImpl();

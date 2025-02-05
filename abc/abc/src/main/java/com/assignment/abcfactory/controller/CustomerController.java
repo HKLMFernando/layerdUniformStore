@@ -1,6 +1,6 @@
 package com.assignment.abcfactory.controller;
 
-import com.assignment.abcfactory.bo.CustomerBoImpl;
+import com.assignment.abcfactory.bo.custom.impl.CustomerBoImpl;
 import com.assignment.abcfactory.model.CustomerDto;
 import com.assignment.abcfactory.view.tdm.CustomerTm;
 import javafx.collections.FXCollections;

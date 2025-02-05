@@ -1,4 +1,4 @@
-package com.assignment.abcfactory.bo;
+package com.assignment.abcfactory.bo.custom;
 
 import com.assignment.abcfactory.model.ItemDto;
 

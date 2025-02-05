@@ -1,6 +1,6 @@
 package com.assignment.abcfactory.controller;
 
-import com.assignment.abcfactory.bo.ItemBoImpl;
+import com.assignment.abcfactory.bo.custom.impl.ItemBoImpl;
 import com.assignment.abcfactory.model.ItemDto;
 import com.assignment.abcfactory.view.tdm.ItemTm;
 import javafx.collections.FXCollections;

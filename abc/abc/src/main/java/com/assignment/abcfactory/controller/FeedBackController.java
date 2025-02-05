@@ -1,7 +1,7 @@
 package com.assignment.abcfactory.controller;
 
-import com.assignment.abcfactory.bo.CustomerBoImpl;
-import com.assignment.abcfactory.bo.FeedBackBoImpl;
+import com.assignment.abcfactory.bo.custom.impl.CustomerBoImpl;
+import com.assignment.abcfactory.bo.custom.impl.FeedBackBoImpl;
 import com.assignment.abcfactory.model.CustomerDto;
 import com.assignment.abcfactory.model.FeedBackDto;
 import com.assignment.abcfactory.view.tdm.FeedBackTm;

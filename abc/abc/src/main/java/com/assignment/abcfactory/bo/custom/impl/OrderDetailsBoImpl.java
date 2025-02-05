@@ -1,6 +1,6 @@
-package com.assignment.abcfactory.bo;
+package com.assignment.abcfactory.bo.custom.impl;
 
-import com.assignment.abcfactory.dao.CrudUtil;
+import com.assignment.abcfactory.bo.custom.OrderDetailsBo;
 import com.assignment.abcfactory.dao.custom.impl.OrderDetailsDAOImpl;
 import com.assignment.abcfactory.model.OrderDetailsDto;
 

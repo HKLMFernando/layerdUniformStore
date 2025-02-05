@@ -1,6 +1,5 @@
-package com.assignment.abcfactory.bo;
+package com.assignment.abcfactory.bo.custom;
 
-import com.assignment.abcfactory.dao.custom.impl.FeedBackModelDAOImpl;
 import com.assignment.abcfactory.model.FeedBackDto;
 
 import java.sql.SQLException;

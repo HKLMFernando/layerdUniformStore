@@ -1,6 +1,6 @@
 package com.assignment.abcfactory.controller;
 
-import com.assignment.abcfactory.bo.UserBoImpl;
+import com.assignment.abcfactory.bo.custom.impl.UserBoImpl;
 import com.assignment.abcfactory.model.UserDto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
